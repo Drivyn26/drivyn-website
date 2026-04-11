@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/drivyn-3d-app/start", "destination": "/drivyn-3d/start.html" },
+    { "source": "/drivyn-3d-app/privacy", "destination": "/drivyn-3d/privacy.html" },
+    { "source": "/drivyn-3d-app/terms", "destination": "/drivyn-3d/terms.html" }
+  ]
+}

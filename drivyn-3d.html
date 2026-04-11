@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drivyn — Websites & AI Systems That Make Your Business More Money</title>
+  <meta name="description" content="Drivyn builds high-converting websites, AI receptionists, and automation systems for local service businesses. More calls. More booked jobs. Less wasted time." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28'>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --bg2: #080b14;
+      --bg-card: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.07);
+      --border-gold: rgba(201,168,76,0.2);
+      --text: #f0f0f2;
+      --text-muted: rgba(240,240,242,0.55);
+      --gold: #c9a84c;
+      --gold2: #f0d070;
+      --gold-glow: rgba(201,168,76,0.08);
+      --purple: #7c3aed;
+      --r: 12px;
+      --r-lg: 18px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; line-height: 1.15; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; }
+    h2 { font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 800; }
+    h3 { font-size: 1.35rem; font-weight: 700; }
+
+    .gold-text { background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    a { color: inherit; text-decoration: none; }
+    p { color: var(--text-muted); }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 100px 0; }
+    .section-bg2 { background: var(--bg2); }
+
+    /* ── CANVAS ── */
+    #three-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s, box-shadow 0.3s, padding 0.3s;
+    }
+    .nav.scrolled {
+      background: rgba(6,8,16,0.92);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--border);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; gap: 32px;
+    }
+    .nav-logo {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 28px; margin-left: auto; }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500; color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .btn-nav {
+      padding: 9px 20px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #09080a; font-family: 'Sora', sans-serif;
+      font-weight: 700; font-size: 0.85rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-nav:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+
+    .nav-mobile {
+      display: none; flex-direction: column; gap: 4px;
+      padding: 16px 24px 20px;
+      background: rgba(6,8,16,0.97);
+      border-top: 1px solid var(--border);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { padding: 12px 0; font-size: 1rem; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+    .nav-mobile a:last-child { border: none; margin-top: 8px; text-align: center; }
+
+    @media (max-width: 768px) {
+      .nav-links, .btn-nav { display: none; }
+      .nav-toggle { display: flex; margin-left: auto; }
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 10px;
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; border: none; transition: all 0.25s;
+      position: relative; z-index: 1;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #09080a;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.35); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--border-gold); color: var(--gold); transform: translateY(-2px); }
+    .btn-lg { padding: 16px 36px; font-size: 1.05rem; }
+
+    /* ── SECTION LABELS ── */
+    .label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Sora', sans-serif; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+      background: var(--gold-glow); border: 1px solid var(--border-gold);
+      padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .text-center { text-align: center; }
+    .text-center .label { justify-content: center; }
+    .text-center h2 { margin-bottom: 16px; }
+    .text-center > p { max-width: 580px; margin: 0 auto 60px; font-size: 1.05rem; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 0 80px;
+      position: relative; z-index: 1;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; font-weight: 600; color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .hero-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+    .hero h1 { margin-bottom: 24px; }
+    .hero p { font-size: 1.1rem; max-width: 480px; margin-bottom: 40px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+
+    .hero-stats { display: flex; gap: 36px; }
+    .stat-val {
+      font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-lbl { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* Dashboard card */
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: var(--r-lg);
+      background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent);
+      pointer-events: none;
+    }
+    .dash-header {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 20px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dash-dots { display: flex; gap: 5px; }
+    .dash-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+    .dash-dots span:nth-child(1) { background: #ff5f57; }
+    .dash-dots span:nth-child(2) { background: #febc2e; }
+    .dash-dots span:nth-child(3) { background: #28c840; }
+    .dash-title { font-family: 'Sora', sans-serif; font-size: 0.8rem; font-weight: 700; margin-left: 6px; flex: 1; }
+    .dash-live { font-size: 0.72rem; color: #4ade80; background: rgba(74,222,128,0.1); padding: 3px 8px; border-radius: 100px; font-weight: 600; }
+
+    .dash-big-val {
+      font-family: 'Sora', sans-serif; font-size: 2.6rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin: 4px 0;
+    }
+    .dash-big-lbl { font-size: 0.78rem; color: var(--text-muted); }
+    .dash-change { font-size: 0.82rem; color: #4ade80; font-weight: 600; margin-top: 4px; }
+
+    .dash-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+    .dash-mini-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: 10px; padding: 14px;
+    }
+    .dash-mini-val { font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); }
+    .dash-mini-lbl { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+    .dash-bar-wrap { margin-top: 20px; }
+    .dash-bar-row { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 6px; }
+    .dash-bar-row span:last-child { color: var(--gold); font-weight: 700; }
+    .dash-track { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .dash-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold2)); border-radius: 100px; transition: width 1.5s ease; }
+
+    .notif {
+      position: absolute; top: -16px; right: 16px;
+      background: rgba(6,8,16,0.9);
+      border: 1px solid var(--border-gold);
+      border-radius: 100px; padding: 8px 16px;
+      font-size: 0.78rem; font-weight: 600;
+      backdrop-filter: blur(8px);
+      animation: floatNotif 3s ease-in-out infinite;
+    }
+    @keyframes floatNotif { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+    }
+
+    /* ── SECTION: PAIN ── */
+    .pain-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .pain-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r); padding: 28px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .pain-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+    .pain-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .pain-title { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 640px) and (max-width: 900px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+
+    .svc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 28px;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+    .svc-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.04), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .svc-card:hover { transform: translateY(-6px); border-color: var(--border-gold); }
+    .svc-card:hover::before { opacity: 1; }
+    .svc-card.featured {
+      border-color: rgba(201,168,76,0.3);
+      background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02));
+    }
+    .svc-icon { font-size: 2rem; margin-bottom: 16px; }
+    .svc-name { font-family: 'Sora', sans-serif; font-size: 1.08rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+    .svc-desc { font-size: 0.88rem; margin-bottom: 18px; }
+    .svc-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .svc-list li { font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 8px; }
+    .svc-list li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .svc-badge {
+      position: absolute; top: 16px; right: 16px;
+      background: var(--gold); color: #09080a;
+      font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 800;
+      padding: 4px 10px; border-radius: 100px;
+    }
+
+    /* ── STEPS ── */
+    .steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; position: relative; }
+    @media (max-width: 768px) { .steps-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .steps-grid { grid-template-columns: 1fr; } }
+
+    .step-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 28px;
+      position: relative; overflow: hidden;
+    }
+    .step-num {
+      font-family: 'Sora', sans-serif; font-size: 3rem; font-weight: 900;
+      color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: 16px;
+    }
+    .step-title { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+
+    /* ── WHY SECTION ── */
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
+
+    .why-points { display: flex; flex-direction: column; gap: 24px; margin-top: 36px; }
+    .why-point { display: flex; gap: 16px; }
+    .why-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--gold-glow); border: 1px solid var(--border-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .why-title { font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+
+    .result-card {
+      background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: var(--r-lg); padding: 36px;
+    }
+    .result-big {
+      font-family: 'Sora', sans-serif; font-size: 4rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1;
+    }
+    .result-sub { font-size: 0.9rem; color: var(--text-muted); margin: 8px 0 20px; }
+    .result-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    .result-mini { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .result-mini-val { font-family: 'Sora', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--gold); }
+    .result-mini-lbl { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── TESTIMONIALS ── */
+    .test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    @media (max-width: 900px) { .test-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 600px) and (max-width: 900px) { .test-grid { grid-template-columns: 1fr 1fr; } }
+
+    .test-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 28px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .test-card:hover { transform: translateY(-4px); border-color: var(--border-gold); }
+    .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .test-text { font-size: 0.9rem; font-style: italic; margin-bottom: 24px; line-height: 1.7; }
+    .test-author { display: flex; align-items: center; gap: 12px; }
+    .test-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--gold-glow); border: 1px solid var(--border-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Sora', sans-serif; font-size: 0.75rem; font-weight: 800; color: var(--gold);
+      flex-shrink: 0;
+    }
+    .test-name { font-family: 'Sora', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .test-biz { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ── COMPARISON ── */
+    .comp-wrap {
+      overflow-x: auto; border-radius: var(--r-lg);
+      border: 1px solid var(--border);
+    }
+    .comp-table { width: 100%; border-collapse: collapse; }
+    .comp-table th, .comp-table td {
+      padding: 14px 20px; text-align: center; font-size: 0.88rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .comp-table th { font-family: 'Sora', sans-serif; font-size: 0.82rem; font-weight: 700; background: rgba(255,255,255,0.02); }
+    .comp-table td:first-child { text-align: left; color: var(--text-muted); }
+    .comp-table th:first-child { text-align: left; }
+    .col-drivyn { background: rgba(201,168,76,0.04); }
+    .col-drivyn th { color: var(--gold); }
+    .c-yes { color: #4ade80; font-weight: 700; }
+    .c-no { color: rgba(255,100,100,0.8); }
+    .c-maybe { color: #fb923c; font-size: 0.78rem; }
+    .c-gold { color: var(--gold); font-weight: 700; }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr:hover td { background: rgba(255,255,255,0.01); }
+
+    /* ── FOR/NOT FOR ── */
+    .for-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 0 auto; }
+    @media (max-width: 700px) { .for-grid { grid-template-columns: 1fr; } }
+
+    .for-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 28px;
+    }
+    .for-card.yes { border-color: rgba(74,222,128,0.2); }
+    .for-card.no { border-color: rgba(255,100,100,0.15); }
+    .for-label {
+      font-family: 'Sora', sans-serif; font-size: 0.78rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px;
+      padding: 6px 14px; border-radius: 100px; display: inline-block;
+    }
+    .for-card.yes .for-label { background: rgba(74,222,128,0.1); color: #4ade80; border: 1px solid rgba(74,222,128,0.2); }
+    .for-card.no .for-label { background: rgba(255,100,100,0.1); color: rgba(255,100,100,0.9); border: 1px solid rgba(255,100,100,0.2); }
+    .for-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .for-list li { font-size: 0.88rem; color: var(--text-muted); display: flex; gap: 10px; }
+
+    /* ── FAQ ── */
+    .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 2px; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; transition: border-color 0.3s; }
+    .faq-item.open { border-color: var(--border-gold); }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 24px; cursor: pointer;
+      font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text);
+    }
+    .faq-icon { font-size: 1.2rem; color: var(--gold); transition: transform 0.3s; flex-shrink: 0; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-body-inner { padding: 0 24px 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── CTA ── */
+    .cta-box {
+      background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.03));
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 24px; padding: 72px 48px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '⚡';
+      position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+      font-size: 8rem; opacity: 0.04; pointer-events: none;
+    }
+    .cta-box h2 { margin-bottom: 16px; }
+    .cta-box p { max-width: 500px; margin: 0 auto 36px; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 20px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 60px 0 32px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    .footer-logo { font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; display: block; }
+    .footer-logo span { color: var(--gold); }
+    .footer-brand p { font-size: 0.85rem; color: var(--text-muted); max-width: 260px; }
+    .footer-col-title { font-family: 'Sora', sans-serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+    .footer-col-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col-links a { font-size: 0.88rem; color: var(--text-muted); transition: color 0.2s; }
+    .footer-col-links a:hover { color: var(--gold); }
+    .footer-bottom { display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+    @media (max-width: 500px) { .footer-bottom { flex-direction: column; gap: 6px; text-align: center; } }
+
+    /* ── ANIMATIONS ── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.d1 { transition-delay: 0.1s; }
+    .reveal.d2 { transition-delay: 0.2s; }
+    .reveal.d3 { transition-delay: 0.3s; }
+    .reveal.d4 { transition-delay: 0.4s; }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+    /* ── all sections above canvas ── */
+    nav, section, footer { position: relative; z-index: 1; }
+
+    /* Tilt wrapper for 3D card effect */
+    .tilt { transform-style: preserve-3d; }
+  </style>
+</head>
+<body>
+
+<!-- THREE.JS CANVAS -->
+<canvas id="three-canvas"></canvas>
+
+<!-- ═══════════════════════
+     NAV
+═══════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Driv<span>yn</span></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#results">Results</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#contact" class="btn-nav">Get Free Audit</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="#services">Services</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#results">Results</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="btn btn-primary">Get Free Audit</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════
+     HERO
+═══════════════════════ -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="hero-dot"></span>
+          Websites &amp; AI Systems for Local Businesses
+        </div>
+        <h1>
+          Stop Losing Jobs to Businesses That Just
+          <span class="gold-text"> Look Better Online</span>
+        </h1>
+        <p>Drivyn builds revenue systems for local service businesses — high-converting websites, AI-powered follow-up, and automation that works while you're on the job.</p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn btn-primary btn-lg">Get Your Free Audit →</a>
+          <a href="#how-it-works" class="btn btn-secondary btn-lg">See How It Works ↓</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-val"><span data-count="3" data-suffix="x">0x</span></div>
+            <div class="stat-lbl">Avg lead increase</div>
+          </div>
+          <div>
+            <div class="stat-val"><span data-count="14" data-suffix=" days">0</span></div>
+            <div class="stat-lbl">Avg build time</div>
+          </div>
+          <div>
+            <div class="stat-val"><span data-count="100" data-suffix="%">0%</span></div>
+            <div class="stat-lbl">Done for you</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="position:relative;">
+        <div class="notif">🔔 New Lead — Sarah M. just requested a quote</div>
+        <div class="hero-card tilt" id="hero-card">
+          <div class="dash-header">
+            <div class="dash-dots"><span></span><span></span><span></span></div>
+            <span class="dash-title">Drivyn Dashboard</span>
+            <span class="dash-live">● Live</span>
+          </div>
+          <div class="dash-big-lbl">Monthly Revenue Pipeline</div>
+          <div class="dash-big-val">$28,400</div>
+          <div class="dash-change">↑ 34% from last month</div>
+          <div class="dash-row">
+            <div class="dash-mini-card">
+              <div class="dash-mini-val">47</div>
+              <div class="dash-mini-lbl">Leads This Month</div>
+            </div>
+            <div class="dash-mini-card">
+              <div class="dash-mini-val">31</div>
+              <div class="dash-mini-lbl">Booked Jobs</div>
+            </div>
+          </div>
+          <div class="dash-bar-wrap">
+            <div class="dash-bar-row">
+              <span>Lead → Booked Rate</span>
+              <span>78%</span>
+            </div>
+            <div class="dash-track">
+              <div class="dash-fill" id="dash-fill" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════
+     PAIN POINTS
+═══════════════════════ -->
+<section class="section section-bg2" id="problem">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">Sound Familiar?</div>
+      <h2>Your Business Is Better Than Your<br>Online Presence Suggests</h2>
+      <p>Most local service businesses do great work. The problem isn't quality — it's that the wrong businesses are winning online.</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <div class="pain-icon">🌐</div>
+        <div class="pain-title">Your Website Looks Like It's From 2015</div>
+        <p>Customers judge you before you ever pick up the phone. An outdated website quietly costs you jobs you never knew you lost.</p>
+      </div>
+      <div class="pain-card reveal d1">
+        <div class="pain-icon">📵</div>
+        <div class="pain-title">Missed Calls = Missed Revenue</div>
+        <p>You're on the job, someone calls, they get voicemail. By the time you call back, they've booked someone else. That's expensive.</p>
+      </div>
+      <div class="pain-card reveal d2">
+        <div class="pain-icon">⏱️</div>
+        <div class="pain-title">Leads Go Cold Before You Follow Up</div>
+        <p>You're busy. Follow-up slips. 24–48 hours later that warm lead is gone. Manual follow-up doesn't scale.</p>
+      </div>
+      <div class="pain-card reveal d3">
+        <div class="pain-icon">🔍</div>
+        <div class="pain-title">You're Invisible Where It Counts</div>
+        <p>If you're not showing up in local search, not collecting reviews, and not running a tight online profile — your competitor gets your calls.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════
+     SERVICES
+═══════════════════════ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">What We Build</div>
+      <h2>A Complete Revenue System.<br>Not Just a Website.</h2>
+      <p>Every tool we build has one job: make your business more money.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon">🖥️</div>
+        <div class="svc-name">High-Converting Website</div>
+        <p class="svc-desc">Built to get calls, not win design awards. Fast, mobile-first, and optimised from headline to CTA.</p>
+        <ul class="svc-list">
+          <li>Mobile-first, lightning-fast load</li>
+          <li>Conversion-focused layout &amp; copy</li>
+          <li>SEO-ready from day one</li>
+          <li>Integrates with your booking system</li>
+        </ul>
+      </div>
+      <div class="svc-card featured reveal d1">
+        <div class="svc-badge">Most Popular</div>
+        <div class="svc-icon">🤖</div>
+        <div class="svc-name">AI Missed Call Text-Back</div>
+        <p class="svc-desc">When you can't answer, our AI texts the caller back instantly — captures details, answers questions, keeps the lead warm.</p>
+        <ul class="svc-list">
+          <li>Responds in under 60 seconds</li>
+          <li>Captures name, job type, urgency</li>
+          <li>Qualifies before you call back</li>
+          <li>Works 24/7 — including weekends</li>
+        </ul>
+      </div>
+      <div class="svc-card reveal d2">
+        <div class="svc-icon">⚙️</div>
+        <div class="svc-name">CRM + Follow-Up Automation</div>
+        <p class="svc-desc">Every lead gets tracked, followed up, and nurtured automatically. Your pipeline runs itself.</p>
+        <ul class="svc-list">
+          <li>Automated email &amp; SMS sequences</li>
+          <li>Lead status tracking &amp; alerts</li>
+          <li>Quote follow-up without lifting a finger</li>
+          <li>Re-engagement for old leads</li>
+        </ul>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🎯</div>
+        <div class="svc-name">Lead Capture &amp; Nurture</div>
+        <p class="svc-desc">Forms, chatbots, and landing pages that capture every enquiry — then automatically nurture them through to booking.</p>
+        <ul class="svc-list">
+          <li>Multi-step quote request forms</li>
+          <li>Instant lead notification alerts</li>
+          <li>Nurture sequences that close</li>
+          <li>Integrates with any booking tool</li>
+        </ul>
+      </div>
+      <div class="svc-card reveal d1">
+        <div class="svc-icon">⭐</div>
+        <div class="svc-name">Reputation Management</div>
+        <p class="svc-desc">5-star reviews don't happen by accident. We build systems that ask every happy customer — so your reputation grows automatically.</p>
+        <ul class="svc-list">
+          <li>Automated post-job review requests</li>
+          <li>Google &amp; Facebook review growth</li>
+          <li>Negative review interception</li>
+          <li>Review showcase on your website</li>
+        </ul>
+      </div>
+      <div class="svc-card reveal d2">
+        <div class="svc-icon">📊</div>
+        <div class="svc-name">Reporting &amp; Visibility</div>
+        <p class="svc-desc">Know exactly where your leads come from, what's converting, and what's not. A clean dashboard without the noise.</p>
+        <ul class="svc-list">
+          <li>Monthly performance reports</li>
+          <li>Lead source tracking</li>
+          <li>Conversion rate visibility</li>
+          <li>Clear ROI on everything we build</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════
+     HOW IT WORKS
+═══════════════════════ -->
+<section class="section section-bg2" id="how-it-works">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">The Process</div>
+      <h2>From Zero to Revenue System in 4 Steps</h2>
+      <p>Most clients are live and generating leads within two weeks.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">Free Audit</div>
+        <p>We dig into your current online presence, find where leads are slipping, and show you exactly what it's costing you.</p>
+      </div>
+      <div class="step-card reveal d1">
+        <div class="step-num">02</div>
+        <div class="step-title">Custom Build</div>
+        <p>We build your website, configure AI systems, and set up your automation pipeline — all tailored to your specific business.</p>
+      </div>
+      <div class="step-card reveal d2">
+        <div class="step-num">03</div>
+        <div class="step-title">Go Live</div>
+        <p>Your new system goes live. Tested, optimised, and ready to convert from day one. We handle the launch.</p>
+      </div>
+      <div class="step-card reveal d3">
+        <div class="step-num">04</div>
+        <div class="step-title">Scale &amp; Grow</div>
+        <p>We monitor results, optimise what's working, and build on your wins. You focus on the work. We keep leads coming in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════
+     WHY DRIVYN + RESULTS
+═══════════════════════ -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="why-grid">
+      <div>
+        <div class="label">Why Drivyn</div>
+        <h2>We're Not an Agency.<br>We're <span class="gold-text">In Your Corner.</span></h2>
+        <p style="margin-bottom:0;">Generic agencies sell you a website and disappear. We build revenue systems and stay involved — because our success is tied directly to yours.</p>
+        <div class="why-points">
+          <div class="why-point reveal">
+            <div class="why-icon">💰</div>
+            <div>
+              <div class="why-title">We Measure Success in Jobs Booked — Not Impressions</div>
+              <p>Every decision we make is about driving real calls, real enquiries, and real revenue.</p>
+            </div>
+          </div>
+          <div class="why-point reveal d1">
+            <div class="why-icon">🏗️</div>
+            <div>
+              <div class="why-title">Built Specifically for Service Businesses</div>
+              <p>We understand the busy seasons, missed calls, and word-of-mouth dependency. We build for your world.</p>
+            </div>
+          </div>
+          <div class="why-point reveal d2">
+            <div class="why-icon">⚡</div>
+            <div>
+              <div class="why-title">Everything Done For You</div>
+              <p>You don't need to understand tech, automation, or SEO. You just show up and deliver great work.</p>
+            </div>
+          </div>
+          <div class="why-point reveal d3">
+            <div class="why-icon">🤝</div>
+            <div>
+              <div class="why-title">Ongoing Partner — Not a One-Off Vendor</div>
+              <p>Monthly reporting, ongoing optimisation, and a team that picks up the phone when you need them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="result-card reveal d1">
+        <div class="result-big"><span data-count="312" data-suffix="%">0%</span></div>
+        <div class="result-sub">Average increase in inbound leads within 90 days</div>
+        <p style="font-size:0.88rem;margin-bottom:0;">Businesses that implement the full Drivyn system see transformative results — not just prettier websites.</p>
+        <div class="result-mini-grid">
+          <div class="result-mini">
+            <div class="result-mini-val"><span data-count="2" data-suffix="x">0x</span></div>
+            <div class="result-mini-lbl">More quote requests</div>
+          </div>
+          <div class="result-mini">
+            <div class="result-mini-val"><span data-count="14" data-suffix=" days">0</span></div>
+            <div class="result-mini-lbl">Average launch time</div>
+          </div>
+          <div class="result-mini">
+            <div class="result-mini-val"><span data-count="85" data-suffix="%">0%</span></div>
+            <div class="result-mini-lbl">Leads responded in &lt;1 min</div>
+          </div>
+          <div class="result-mini">
+            <div class="result-mini-val"><span data-count="100" data-suffix="%">0%</span></div>
+            <div class="result-mini-lbl">Done for you</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════
+     COMPARISON
+═══════════════════════ -->
+<section class="section section-bg2" id="comparison">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">The Honest Comparison</div>
+      <h2>Drivyn vs. The Alternatives</h2>
+      <p>See exactly how we stack up against building it yourself or hiring a generic agency.</p>
+    </div>
+    <div class="comp-wrap reveal">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>What You Get</th>
+            <th>DIY / Template</th>
+            <th>Generic Agency</th>
+            <th class="col-drivyn">⚡ Drivyn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Built to convert visitors to calls</td><td><span class="c-no">✗</span></td><td><span class="c-maybe">Sometimes</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>AI missed call &amp; lead follow-up</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>CRM &amp; automation included</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Reputation management system</td><td><span class="c-no">✗</span></td><td><span class="c-maybe">Extra cost</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Local SEO optimised</td><td><span class="c-no">✗</span></td><td><span class="c-maybe">Sometimes</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Ongoing support &amp; optimisation</td><td><span class="c-no">✗</span></td><td><span class="c-maybe">Extra cost</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Results-first approach</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Typical launch time</td><td>Whenever you finish</td><td>6–12 weeks</td><td class="col-drivyn"><span class="c-gold">~2 weeks</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════
+     TESTIMONIALS
+═══════════════════════ -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">Client Results</div>
+      <h2>Real Businesses. Real Revenue.</h2>
+      <p>Don't take our word for it. Here's what happens when service businesses get a proper system.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="test-text">"We went from maybe 8 leads a month to 30+. The AI text-back alone has saved us at least 5 jobs that would've gone elsewhere. Best investment we've made."</p>
+        <div class="test-author">
+          <div class="test-avatar">MK</div>
+          <div>
+            <div class="test-name">Marcus K.</div>
+            <div class="test-biz">Residential HVAC — Calgary, AB</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal d1">
+        <div class="stars">★★★★★</div>
+        <p class="test-text">"I was embarrassed by my old website. Drivyn rebuilt everything, set up the automations, and within 6 weeks we were getting more calls than we could handle."</p>
+        <div class="test-author">
+          <div class="test-avatar">JR</div>
+          <div>
+            <div class="test-name">Jordan R.</div>
+            <div class="test-biz">Flooring &amp; Tile — Edmonton, AB</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal d2">
+        <div class="stars">★★★★★</div>
+        <p class="test-text">"The follow-up system is unreal. Leads that I would've forgotten about are booking weeks later because the automation kept them warm. Money I never would have seen."</p>
+        <div class="test-author">
+          <div class="test-avatar">SL</div>
+          <div>
+            <div class="test-name">Sandra L.</div>
+            <div class="test-biz">Window &amp; Eavestrough — Red Deer, AB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════
+     WHO IT'S FOR
+═══════════════════════ -->
+<section class="section section-bg2" id="fit">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">Fit Check</div>
+      <h2>Is Drivyn Right for You?</h2>
+      <p>We work best with a specific type of business. The more honest we are upfront, the better the results.</p>
+    </div>
+    <div class="for-grid">
+      <div class="for-card yes reveal">
+        <div class="for-label">✓ This is for you</div>
+        <ul class="for-list">
+          <li><span>🏠</span> You're a local service business — trades, home services, automotive, cleaning</li>
+          <li><span>📞</span> You want more calls without spending more on ads</li>
+          <li><span>📈</span> You've outgrown word-of-mouth and need a consistent lead source</li>
+          <li><span>💼</span> You're serious about growth and willing to invest in the right tools</li>
+          <li><span>⏰</span> You're too busy to chase leads — you want the system to do it for you</li>
+          <li><span>⭐</span> You do great work and want your online reputation to reflect that</li>
+        </ul>
+      </div>
+      <div class="for-card no reveal d1">
+        <div class="for-label">✗ Not the right fit</div>
+        <ul class="for-list">
+          <li><span>🎨</span> You want a portfolio piece with no interest in conversion</li>
+          <li><span>🐢</span> You're not ready to respond to leads when they come in</li>
+          <li><span>💸</span> You're looking for the cheapest option — not the best ROI</li>
+          <li><span>🤷</span> You're a side hustle not yet committed to growing</li>
+          <li><span>🔒</span> You want total control and to DIY everything yourself</li>
+          <li><span>📉</span> You're not willing to trust a proven system</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════
+     FAQ
+═══════════════════════ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">FAQ</div>
+      <h2>Questions We Get Every Week</h2>
+      <p>If you're thinking it, someone else already asked it.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>How much does it cost?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-body-inner">Our systems start from $1,500 for a standalone website, up to full revenue system packages. The better question is: what's a booked job worth to you? Most clients recover the investment within the first 30–60 days of going live. Every engagement starts with a free audit so you know exactly what you're getting before committing.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>How long does it take to go live?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-body-inner">Most builds go live within 2 weeks. We move fast deliberately — every day your current setup is losing you leads. Once we have your content and onboarding info, we build quickly and keep you in the loop throughout.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>What kind of results can I realistically expect?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-body-inner">Every business is different, but our clients typically see a meaningful increase in inbound calls within the first 30 days, and a significant jump in booked jobs by day 60–90. The biggest wins usually come from the AI follow-up and missed call systems — these often generate ROI in the first week alone.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>Do I need to be tech-savvy?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-body-inner">Not at all. We handle the entire build, setup, and launch. You get trained on how to use your dashboard (it takes about 20 minutes), and after that, most of it runs on its own. Our clients are busy tradespeople and business owners — not tech people. That's the point.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>I already have a website. Can you work with that?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-body-inner">We'll audit it first. If it's already converting well, we'll layer our AI and automation systems on top. If it's not converting (most aren't), we'll show you the data and recommend a rebuild. Either way, you leave the audit with clear answers.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>Is there ongoing support after launch?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-body">
+          <div class="faq-body-inner">Yes — every client gets ongoing support. Monthly performance reports, optimisations based on real data, and we're available when you need us. We're not a one-off vendor. We build long-term relationships with businesses we work with.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════
+     CONTACT / CTA
+═══════════════════════ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="label" style="justify-content:center;margin:0 auto 20px;">Let's Talk</div>
+      <h2>Start With a Free Audit.<br><span class="gold-text">No Pressure. Just Clarity.</span></h2>
+      <p>We'll look at what you have, tell you honestly what's working and what isn't, and show you what's possible — whether you work with us or not.</p>
+      <div class="cta-btns">
+        <a href="contact.html" class="btn btn-primary btn-lg">Book Your Free Audit →</a>
+        <a href="services.html" class="btn btn-secondary btn-lg">Explore Services</a>
+      </div>
+      <p class="cta-note">No commitment. No sales pressure. Just a straight conversation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════
+     FOOTER
+═══════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">Driv<span>yn</span></a>
+        <p>We build websites and AI systems that help local service businesses make more money.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Pages</div>
+        <div class="footer-col-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-col-links">
+          <a href="services.html#website">Website Design</a>
+          <a href="services.html#ai-receptionist">AI Receptionist</a>
+          <a href="services.html#crm-automation">CRM &amp; Automation</a>
+          <a href="services.html#reputation">Reputation Systems</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Get Started</div>
+        <div class="footer-col-links">
+          <a href="contact.html">Free Audit</a>
+          <a href="contact.html#book">Book a Call</a>
+          <a href="about.html">Our Story</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Drivyn. All rights reserved.</span>
+      <span>Built to make businesses more money.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- THREE.JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+<script>
+/* ════════════════════════════════════════
+   THREE.JS — PARTICLE NETWORK BACKGROUND
+════════════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('three-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 0, 80);
+
+  /* ── PARTICLES ── */
+  const PARTICLE_COUNT = 120;
+  const positions = new Float32Array(PARTICLE_COUNT * 3);
+  const velocities = [];
+  const particleData = [];
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const x = (Math.random() - 0.5) * 160;
+    const y = (Math.random() - 0.5) * 120;
+    const z = (Math.random() - 0.5) * 60;
+    positions[i * 3]     = x;
+    positions[i * 3 + 1] = y;
+    positions[i * 3 + 2] = z;
+    velocities.push({
+      x: (Math.random() - 0.5) * 0.04,
+      y: (Math.random() - 0.5) * 0.04,
+      z: (Math.random() - 0.5) * 0.02
+    });
+    particleData.push({ x, y, z });
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const mat = new THREE.PointsMaterial({
+    color: 0xc9a84c,
+    size: 0.5,
+    transparent: true,
+    opacity: 0.6,
+    sizeAttenuation: true
+  });
+
+  const particles = new THREE.Points(geo, mat);
+  scene.add(particles);
+
+  /* ── CONNECTION LINES ── */
+  const MAX_CONNECTIONS = 200;
+  const linePositions = new Float32Array(MAX_CONNECTIONS * 6);
+  const lineGeo = new THREE.BufferGeometry();
+  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+
+  const lineMat = new THREE.LineSegments(
+    lineGeo,
+    new THREE.LineBasicMaterial({ color: 0xc9a84c, transparent: true, opacity: 0.08 })
+  );
+  scene.add(lineMat);
+
+  /* ── FLOATING GEOMETRY SHAPES ── */
+  const shapes = [];
+  const shapeGeos = [
+    new THREE.IcosahedronGeometry(4, 0),
+    new THREE.OctahedronGeometry(3, 0),
+    new THREE.TetrahedronGeometry(3, 0),
+    new THREE.IcosahedronGeometry(2.5, 0),
+  ];
+  const wireMat = new THREE.MeshBasicMaterial({ color: 0xc9a84c, wireframe: true, transparent: true, opacity: 0.15 });
+
+  const shapePositions = [
+    [-45, 30, -20], [50, -20, -30], [-60, -35, -10], [40, 40, -25]
+  ];
+
+  shapeGeos.forEach((g, i) => {
+    const mesh = new THREE.Mesh(g, wireMat.clone());
+    mesh.position.set(...shapePositions[i]);
+    mesh.userData = { rotX: Math.random() * 0.003, rotY: Math.random() * 0.005, rotZ: Math.random() * 0.002 };
+    scene.add(mesh);
+    shapes.push(mesh);
+  });
+
+  /* ── SCROLL + MOUSE PARALLAX ── */
+  let mouseX = 0, mouseY = 0;
+  let scrollY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+  window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+
+  /* ── ANIMATE ── */
+  const pos = geo.attributes.position;
+  let frame = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    frame++;
+
+    // move particles
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      pos.array[i * 3]     += velocities[i].x;
+      pos.array[i * 3 + 1] += velocities[i].y;
+      pos.array[i * 3 + 2] += velocities[i].z;
+
+      // wrap bounds
+      if (pos.array[i * 3] > 80)  pos.array[i * 3] = -80;
+      if (pos.array[i * 3] < -80) pos.array[i * 3] = 80;
+      if (pos.array[i * 3 + 1] > 60)  pos.array[i * 3 + 1] = -60;
+      if (pos.array[i * 3 + 1] < -60) pos.array[i * 3 + 1] = 60;
+    }
+    pos.needsUpdate = true;
+
+    // draw connection lines
+    if (frame % 2 === 0) {
+      let connCount = 0;
+      const lp = lineGeo.attributes.position.array;
+      for (let i = 0; i < PARTICLE_COUNT && connCount < MAX_CONNECTIONS; i++) {
+        for (let j = i + 1; j < PARTICLE_COUNT && connCount < MAX_CONNECTIONS; j++) {
+          const dx = pos.array[i*3] - pos.array[j*3];
+          const dy = pos.array[i*3+1] - pos.array[j*3+1];
+          const dz = pos.array[i*3+2] - pos.array[j*3+2];
+          const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+          if (dist < 20) {
+            lp[connCount*6]   = pos.array[i*3];
+            lp[connCount*6+1] = pos.array[i*3+1];
+            lp[connCount*6+2] = pos.array[i*3+2];
+            lp[connCount*6+3] = pos.array[j*3];
+            lp[connCount*6+4] = pos.array[j*3+1];
+            lp[connCount*6+5] = pos.array[j*3+2];
+            connCount++;
+          }
+        }
+      }
+      lineGeo.setDrawRange(0, connCount * 2);
+      lineGeo.attributes.position.needsUpdate = true;
+    }
+
+    // rotate shapes
+    shapes.forEach(s => {
+      s.rotation.x += s.userData.rotX;
+      s.rotation.y += s.userData.rotY;
+      s.rotation.z += s.userData.rotZ;
+    });
+
+    // camera parallax
+    camera.position.x += (mouseX * 8 - camera.position.x) * 0.03;
+    camera.position.y += (-mouseY * 6 - camera.position.y) * 0.03;
+    camera.position.z = 80 - scrollY * 0.015;
+    camera.lookAt(scene.position);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+/* ════════════════════════════════════════
+   NAV
+════════════════════════════════════════ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 24);
+}, { passive: true });
+
+const navToggle = document.getElementById('nav-toggle');
+const navMobile = document.getElementById('nav-mobile');
+navToggle.addEventListener('click', () => {
+  navMobile.classList.toggle('open');
+});
+navMobile.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navMobile.classList.remove('open'));
+});
+
+/* ════════════════════════════════════════
+   HERO CARD 3D TILT
+════════════════════════════════════════ */
+const heroCard = document.getElementById('hero-card');
+if (heroCard) {
+  heroCard.parentElement.addEventListener('mousemove', e => {
+    const rect = heroCard.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    heroCard.style.transform = `perspective(800px) rotateY(${x * 14}deg) rotateX(${-y * 10}deg) translateZ(10px)`;
+  });
+  heroCard.parentElement.addEventListener('mouseleave', () => {
+    heroCard.style.transform = 'perspective(800px) rotateY(0) rotateX(0) translateZ(0)';
+  });
+}
+
+/* ════════════════════════════════════════
+   DASH BAR FILL ON LOAD
+════════════════════════════════════════ */
+setTimeout(() => {
+  const fill = document.getElementById('dash-fill');
+  if (fill) fill.style.width = '78%';
+}, 800);
+
+/* ════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════ */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObs.observe(el));
+
+/* ════════════════════════════════════════
+   COUNT-UP ANIMATION
+════════════════════════════════════════ */
+function countUp(el) {
+  const target = parseInt(el.dataset.count, 10);
+  const suffix = el.dataset.suffix || '';
+  const dur = 1800;
+  const step = dur / target;
+  let cur = 0;
+  const timer = setInterval(() => {
+    cur = Math.min(cur + Math.ceil(target / 60), target);
+    el.textContent = cur + suffix;
+    if (cur >= target) clearInterval(timer);
+  }, step);
+}
+
+const countObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-count]').forEach(countUp);
+      countObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.hero-stats, .result-card').forEach(el => countObs.observe(el));
+
+/* ════════════════════════════════════════
+   FAQ ACCORDION
+════════════════════════════════════════ */
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.querySelector('.faq-q').addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-body').style.maxHeight = null;
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      const body = item.querySelector('.faq-body');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  });
+});
+
+/* ════════════════════════════════════════
+   SMOOTH SCROLL
+════════════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
