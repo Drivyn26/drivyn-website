@@ -297,15 +297,21 @@ nav, section, footer { position: relative; z-index: 1; }
 
 /* Pricing */
 .pricing-toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 48px; }
-.pricing-toggle-label { font-family: 'Sora', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--text-muted); }
-.pricing-toggle-label.active { color: var(--text); }
-.toggle-switch { position: relative; display: inline-block; width: 52px; height: 28px; cursor: pointer; }
-.toggle-switch input { opacity: 0; width: 0; height: 0; }
-.toggle-slider { position: absolute; inset: 0; border-radius: 100px; background: rgba(124,58,237,0.3); transition: background 0.3s; }
-.toggle-slider::before { content: ''; position: absolute; width: 20px; height: 20px; left: 4px; top: 4px; border-radius: 50%; background: var(--purple2); transition: transform 0.3s; }
-.toggle-switch input:checked + .toggle-slider { background: var(--purple); }
-.toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
 .save-badge { background: rgba(74,222,128,0.15); color: #4ade80; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 100px; border: 1px solid rgba(74,222,128,0.25); margin-left: 6px; vertical-align: middle; }
+/* Billing selector */
+.billing-selector { display: flex; gap: 16px; justify-content: center; margin-bottom: 36px; }
+.billing-option { position: relative; cursor: pointer; background: var(--bg-card); border: 2px solid var(--border); border-radius: 16px; padding: 22px 36px; text-align: center; min-width: 190px; transition: all 0.25s; user-select: none; }
+.billing-option:hover { border-color: rgba(201,168,76,0.4); }
+.billing-option.active { border-color: var(--gold); background: rgba(201,168,76,0.07); box-shadow: 0 0 0 4px rgba(201,168,76,0.08); }
+.billing-option-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #4ade80; color: #052e16; font-family: 'Sora', sans-serif; font-size: 0.62rem; font-weight: 900; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 100px; white-space: nowrap; }
+.billing-option-label { font-family: 'Sora', sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.billing-option.active .billing-option-label { color: var(--gold); }
+.billing-option-price { font-family: 'Sora', sans-serif; font-size: 2.2rem; font-weight: 900; color: var(--text); line-height: 1; margin-bottom: 6px; }
+.billing-option-price span { font-size: 1rem; font-weight: 600; color: var(--text-muted); }
+.billing-option.active .billing-option-price { color: #fff; }
+.billing-option-note { font-size: 0.75rem; color: var(--text-muted); }
+.billing-option.active .billing-option-note { color: rgba(201,168,76,0.8); }
+@media (max-width: 480px) { .billing-selector { flex-direction: column; align-items: center; } .billing-option { width: 100%; max-width: 280px; } }
 .pricing-main-card { max-width: 480px; margin: 0 auto 60px; background: linear-gradient(160deg, #c9870a, #e8a743); border-radius: 20px; padding: 36px; position: relative; overflow: hidden; box-shadow: 0 24px 80px rgba(232,167,67,0.25); }
 .pricing-main-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 60%); pointer-events: none; }
 .pricing-popular-tag { font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #7a4800; text-decoration: underline; margin-bottom: 10px; display: block; }
@@ -682,10 +688,19 @@ nav, section, footer { position: relative; z-index: 1; }
       <h3>What does your monthly investment actually get you?</h3>
       <p>A fully built revenue system — website, AI receptionist, automated follow-up, and every integration — running 24/7 without you lifting a finger. One booked job pays for the month. Everything else is profit you didn't have before.</p>
     </div>
-    <div class="pricing-toggle-wrap">
-      <span class="pricing-toggle-label active" id="lbl-monthly">Monthly</span>
-      <label class="toggle-switch"><input type="checkbox" id="billing-toggle" /><span class="toggle-slider"></span></label>
-      <span class="pricing-toggle-label" id="lbl-annual">Annually <span class="save-badge">Save $594</span></span>
+    <!-- Billing selector: two visual cards -->
+    <div class="billing-selector reveal">
+      <div class="billing-option active" id="opt-monthly" onclick="selectBilling('monthly')">
+        <div class="billing-option-label">Monthly</div>
+        <div class="billing-option-price">$297<span>/mo</span></div>
+        <div class="billing-option-note">Cancel anytime</div>
+      </div>
+      <div class="billing-option" id="opt-annual" onclick="selectBilling('annual')">
+        <div class="billing-option-badge">2 MONTHS FREE</div>
+        <div class="billing-option-label">Annually</div>
+        <div class="billing-option-price">$2,970<span>/yr</span></div>
+        <div class="billing-option-note">$247/mo · save $594</div>
+      </div>
     </div>
     <div class="pricing-main-card reveal">
       <span class="pricing-popular-tag">MOST POPULAR</span>
@@ -998,17 +1013,14 @@ document.querySelectorAll('.upsell-header').forEach(header=>{
   });
 });
 
-/* BILLING TOGGLE */
-const billingToggle=document.getElementById('billing-toggle');
-if(billingToggle){
-  billingToggle.addEventListener('change', ()=>{
-    const isAnnual=billingToggle.checked;
-    document.getElementById('price-num').textContent=isAnnual?'247':'297';
-    document.getElementById('price-per').textContent=isAnnual?'/mo  ·  billed as $2,970/yr':'/mo  ·  cancel anytime';
-    document.getElementById('annual-note').classList.toggle('show',isAnnual);
-    document.getElementById('lbl-monthly').classList.toggle('active',!isAnnual);
-    document.getElementById('lbl-annual').classList.toggle('active',isAnnual);
-  });
+/* BILLING SELECTOR */
+function selectBilling(plan){
+  const isAnnual = plan === 'annual';
+  document.getElementById('opt-monthly').classList.toggle('active', !isAnnual);
+  document.getElementById('opt-annual').classList.toggle('active', isAnnual);
+  document.getElementById('price-num').textContent = isAnnual ? '2,970' : '297';
+  document.getElementById('price-per').textContent = isAnnual ? '/yr  ·  2 months free' : '/mo  ·  cancel anytime';
+  document.getElementById('annual-note').classList.toggle('show', isAnnual);
 }
 
 /* CALCULATOR */
