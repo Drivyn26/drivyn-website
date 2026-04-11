@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drivyn — Websites & AI Systems That Make Your Business More Money</title>
+  <meta name="description" content="Drivyn builds revenue systems for local service businesses — high-converting websites, AI-powered follow-up, and automation that works while you're on the job." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28'>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #181527;
+  --bg2: #1d1932;
+  --bg-card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.09);
+  --border-gold: rgba(201,168,76,0.22);
+  --border-purple: rgba(139,92,246,0.25);
+  --text: #f2f0f8;
+  --text-muted: rgba(242,240,248,0.58);
+  --gold: #c9a84c;
+  --gold2: #f0d070;
+  --gold-glow: rgba(201,168,76,0.08);
+  --purple: #7c3aed;
+  --purple2: #a78bfa;
+  --purple-glow: rgba(124,58,237,0.12);
+  --r: 12px;
+  --r-lg: 18px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+h1,h2,h3,h4 { font-family: 'Sora', sans-serif; line-height: 1.15; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; }
+h2 { font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 800; }
+h3 { font-size: 1.35rem; font-weight: 700; }
+
+.gold-text { background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+a { color: inherit; text-decoration: none; }
+p { color: var(--text-muted); }
+
+.container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 100px 0; }
+.section-bg2 { background: var(--bg2); }
+
+#three-canvas {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
+
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100; padding: 20px 0;
+  transition: background 0.3s, box-shadow 0.3s, padding 0.3s;
+}
+.nav.scrolled {
+  background: rgba(6,8,16,0.92);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 var(--border);
+  padding: 14px 0;
+}
+.nav-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; gap: 32px;
+}
+.nav-links { display: flex; gap: 28px; margin-left: auto; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.btn-nav {
+  padding: 9px 20px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #09080a; font-family: 'Sora', sans-serif;
+  font-weight: 700; font-size: 0.85rem;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-nav:hover { opacity: 0.9; transform: translateY(-1px); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+.nav-mobile {
+  display: none; flex-direction: column; gap: 4px;
+  padding: 16px 24px 20px;
+  background: rgba(6,8,16,0.97);
+  border-top: 1px solid var(--border);
+}
+.nav-mobile.open { display: flex; }
+.nav-mobile a { padding: 12px 0; font-size: 1rem; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+.nav-mobile a:last-child { border: none; margin-top: 8px; text-align: center; }
+@media (max-width: 768px) {
+  .nav-links, .btn-nav { display: none; }
+  .nav-toggle { display: flex; margin-left: auto; }
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 10px;
+  font-family: 'Sora', sans-serif; font-weight: 700; font-size: 0.95rem;
+  cursor: pointer; border: none; transition: all 0.25s;
+  position: relative; z-index: 1;
+}
+.btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #09080a; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.35); }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--border-gold); color: var(--gold); transform: translateY(-2px); }
+.btn-lg { padding: 16px 36px; font-size: 1.05rem; }
+
+.label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Sora', sans-serif; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+  background: var(--gold-glow); border: 1px solid var(--border-gold);
+  padding: 6px 14px; border-radius: 100px; margin-bottom: 20px;
+}
+.text-center { text-align: center; }
+.text-center .label { justify-content: center; }
+.text-center h2 { margin-bottom: 16px; }
+.text-center > p { max-width: 580px; margin: 0 auto 60px; font-size: 1.05rem; }
+
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 120px 0 80px; position: relative; z-index: 1;
+}
+.hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 600; color: var(--gold); margin-bottom: 24px; }
+.hero-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+.hero h1 { margin-bottom: 24px; }
+.hero p { font-size: 1.1rem; max-width: 480px; margin-bottom: 40px; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+.hero-stats { display: flex; gap: 36px; }
+.hero-canada { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; background: rgba(213,43,30,0.08); border: 1px solid rgba(213,43,30,0.25); border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; font-weight: 600; color: #f9a8a8; letter-spacing: 0.02em; }
+.stat-val { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-lbl { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+.hero-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px; backdrop-filter: blur(12px); position: relative; transform-style: preserve-3d; }
+.hero-card::before { content: ''; position: absolute; inset: 0; border-radius: var(--r-lg); background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent); pointer-events: none; }
+.dash-header { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.dash-dots { display: flex; gap: 5px; }
+.dash-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+.dash-dots span:nth-child(1) { background: #ff5f57; }
+.dash-dots span:nth-child(2) { background: #febc2e; }
+.dash-dots span:nth-child(3) { background: #28c840; }
+.dash-title { font-family: 'Sora', sans-serif; font-size: 0.8rem; font-weight: 700; margin-left: 6px; flex: 1; }
+.dash-live { font-size: 0.72rem; color: #4ade80; background: rgba(74,222,128,0.1); padding: 3px 8px; border-radius: 100px; font-weight: 600; }
+.dash-big-val { font-family: 'Sora', sans-serif; font-size: 2.6rem; font-weight: 800; background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 4px 0; }
+.dash-big-lbl { font-size: 0.78rem; color: var(--text-muted); }
+.dash-change { font-size: 0.82rem; color: #4ade80; font-weight: 600; margin-top: 4px; }
+.dash-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+.dash-mini-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.dash-mini-val { font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); }
+.dash-mini-lbl { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+.dash-bar-wrap { margin-top: 20px; }
+.dash-bar-row { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 6px; }
+.dash-bar-row span:last-child { color: var(--gold); font-weight: 700; }
+.dash-track { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.dash-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold2)); border-radius: 100px; transition: width 1.5s ease; }
+.notif { position: absolute; top: -16px; right: 16px; background: rgba(6,8,16,0.9); border: 1px solid var(--border-gold); border-radius: 100px; padding: 8px 16px; font-size: 0.78rem; font-weight: 600; backdrop-filter: blur(8px); animation: floatNotif 3s ease-in-out infinite; }
+@keyframes floatNotif { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } .hero-card { display: none; } }
+
+.pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.pain-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 28px; transition: border-color 0.3s, transform 0.3s; }
+.pain-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+.pain-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.pain-title { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 900px) { .services-grid { grid-template-columns: 1fr; } }
+@media (min-width: 640px) and (max-width: 900px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+.svc-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; cursor: default; }
+.svc-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(201,168,76,0.04), transparent); opacity: 0; transition: opacity 0.3s; }
+.svc-card:hover { transform: translateY(-6px); border-color: var(--border-gold); }
+.svc-card:hover::before { opacity: 1; }
+.svc-card.featured { border-color: rgba(201,168,76,0.3); background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02)); }
+.svc-icon { font-size: 2rem; margin-bottom: 16px; }
+.svc-name { font-family: 'Sora', sans-serif; font-size: 1.08rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+.svc-desc { font-size: 0.88rem; margin-bottom: 18px; }
+.svc-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.svc-list li { font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 8px; }
+.svc-list li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+.svc-badge { position: absolute; top: 16px; right: 16px; background: var(--gold); color: #09080a; font-family: 'Sora', sans-serif; font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 100px; }
+
+.steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; position: relative; }
+@media (max-width: 768px) { .steps-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .steps-grid { grid-template-columns: 1fr; } }
+.steps-3 { grid-template-columns: repeat(3, 1fr) !important; }
+@media (max-width: 900px) { .steps-3 { grid-template-columns: 1fr !important; } }
+.step-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px; position: relative; overflow: hidden; }
+.step-num { font-family: 'Sora', sans-serif; font-size: 3rem; font-weight: 900; color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: 16px; }
+.step-title { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+@media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
+.why-points { display: flex; flex-direction: column; gap: 24px; margin-top: 36px; }
+.why-point { display: flex; gap: 16px; }
+.why-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--gold-glow); border: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.why-title { font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+.result-card { background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02)); border: 1px solid rgba(201,168,76,0.25); border-radius: var(--r-lg); padding: 36px; }
+.result-badge-pkg { display: inline-block; font-family: 'Sora', sans-serif; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(201,168,76,0.35); border-radius: 100px; padding: 5px 14px; margin-bottom: 14px; }
+.result-sub { font-size: 0.9rem; color: var(--text-muted); margin: 8px 0 20px; }
+.result-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+.result-mini { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.result-mini-val { font-family: 'Sora', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--gold); }
+.result-mini-lbl { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+
+.comp-wrap { overflow-x: auto; border-radius: var(--r-lg); border: 1px solid var(--border); }
+.comp-table { width: 100%; border-collapse: collapse; }
+.comp-table th, .comp-table td { padding: 14px 20px; text-align: center; font-size: 0.88rem; border-bottom: 1px solid var(--border); }
+.comp-table th { font-family: 'Sora', sans-serif; font-size: 0.82rem; font-weight: 700; background: rgba(255,255,255,0.02); }
+.comp-table td:first-child { text-align: left; color: var(--text-muted); }
+.comp-table th:first-child { text-align: left; }
+.col-drivyn { background: rgba(201,168,76,0.04); }
+.col-drivyn th { color: var(--gold); }
+.c-yes { color: #4ade80; font-weight: 700; }
+.c-no { color: rgba(255,100,100,0.8); }
+.c-maybe { color: #fb923c; font-size: 0.78rem; }
+.c-gold { color: var(--gold); font-weight: 700; }
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:hover td { background: rgba(255,255,255,0.01); }
+
+.for-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 0 auto; }
+@media (max-width: 700px) { .for-grid { grid-template-columns: 1fr; } }
+.for-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px; }
+.for-card.yes { border-color: rgba(74,222,128,0.2); }
+.for-card.no { border-color: rgba(255,100,100,0.15); }
+.for-label { font-family: 'Sora', sans-serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; padding: 6px 14px; border-radius: 100px; display: inline-block; }
+.for-card.yes .for-label { background: rgba(74,222,128,0.1); color: #4ade80; border: 1px solid rgba(74,222,128,0.2); }
+.for-card.no .for-label { background: rgba(255,100,100,0.1); color: rgba(255,100,100,0.9); border: 1px solid rgba(255,100,100,0.2); }
+.for-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.for-list li { font-size: 0.88rem; color: var(--text-muted); display: flex; gap: 10px; }
+
+.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 2px; }
+.faq-item { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; transition: border-color 0.3s; }
+.faq-item.open { border-color: var(--border-gold); }
+.faq-q { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; cursor: pointer; font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); }
+.faq-icon { font-size: 1.2rem; color: var(--gold); transition: transform 0.3s; flex-shrink: 0; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.faq-body-inner { padding: 0 24px 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+.cta-box { background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.03)); border: 1px solid rgba(201,168,76,0.25); border-radius: 24px; padding: 72px 48px; text-align: center; position: relative; overflow: hidden; }
+.cta-box::before { content: '⚡'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 8rem; opacity: 0.04; pointer-events: none; }
+.cta-box h2 { margin-bottom: 16px; }
+.cta-box p { max-width: 500px; margin: 0 auto 36px; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.cta-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 20px; }
+
+/* Contact Form */
+.contact-form { max-width: 600px; margin: 32px auto 0; text-align: left; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+@media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); font-family: 'Sora', sans-serif; letter-spacing: 0.04em; }
+.form-group input { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; font-size: 0.92rem; color: var(--text); outline: none; transition: border-color 0.2s, background 0.2s; font-family: 'Inter', sans-serif; width: 100%; }
+.form-group input::placeholder { color: rgba(242,240,248,0.35); }
+.form-group input:focus { border-color: var(--border-gold); background: rgba(255,255,255,0.07); }
+.form-submit-btn { width: 100%; justify-content: center; margin-top: 8px; }
+.form-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+
+.footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 0 32px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+.footer-brand p { font-size: 0.85rem; color: var(--text-muted); max-width: 260px; }
+.footer-col-title { font-family: 'Sora', sans-serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+.footer-col-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-col-links a { font-size: 0.88rem; color: var(--text-muted); transition: color 0.2s; }
+.footer-col-links a:hover { color: var(--gold); }
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+@media (max-width: 500px) { .footer-bottom { flex-direction: column; gap: 6px; text-align: center; } }
+
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.3s; }
+.reveal.d4 { transition-delay: 0.4s; }
+.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+nav, section, footer { position: relative; z-index: 1; }
+.tilt { transform-style: preserve-3d; }
+.nav-logo-svg { display: flex; align-items: center; height: 44px; }
+.nav-logo-svg img { height: 72px; width: auto; }
+.footer-logo-img { height: 80px; width: auto; margin-bottom: 14px; display: block; }
+
+/* Pricing */
+.pricing-toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 48px; }
+.pricing-toggle-label { font-family: 'Sora', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--text-muted); }
+.pricing-toggle-label.active { color: var(--text); }
+.toggle-switch { position: relative; display: inline-block; width: 52px; height: 28px; cursor: pointer; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider { position: absolute; inset: 0; border-radius: 100px; background: rgba(124,58,237,0.3); transition: background 0.3s; }
+.toggle-slider::before { content: ''; position: absolute; width: 20px; height: 20px; left: 4px; top: 4px; border-radius: 50%; background: var(--purple2); transition: transform 0.3s; }
+.toggle-switch input:checked + .toggle-slider { background: var(--purple); }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
+.save-badge { background: rgba(74,222,128,0.15); color: #4ade80; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 100px; border: 1px solid rgba(74,222,128,0.25); margin-left: 6px; vertical-align: middle; }
+.pricing-main-card { max-width: 480px; margin: 0 auto 60px; background: linear-gradient(160deg, #c9870a, #e8a743); border-radius: 20px; padding: 36px; position: relative; overflow: hidden; box-shadow: 0 24px 80px rgba(232,167,67,0.25); }
+.pricing-main-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 60%); pointer-events: none; }
+.pricing-popular-tag { font-family: 'Sora', sans-serif; font-size: 0.7rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #7a4800; text-decoration: underline; margin-bottom: 10px; display: block; }
+.pricing-plan-name { font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 16px; }
+.pricing-amount-wrap { display: flex; align-items: flex-end; gap: 4px; margin-bottom: 4px; }
+.pricing-sym { font-family: 'Sora', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; line-height: 1.2; }
+.pricing-num { font-family: 'Sora', sans-serif; font-size: 4.5rem; font-weight: 900; color: #fff; line-height: 1; }
+.pricing-per { font-size: 0.9rem; color: rgba(255,255,255,0.75); margin-bottom: 6px; }
+.pricing-annual-note { font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-bottom: 24px; font-weight: 600; display: none; }
+.pricing-annual-note.show { display: block; }
+.pricing-divider { height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 20px; }
+.pricing-feature-row { border-bottom: 1px solid rgba(255,255,255,0.15); overflow: hidden; }
+.pricing-feature-row:last-of-type { border-bottom: none; }
+.pricing-feature-header { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; cursor: pointer; font-family: 'Sora', sans-serif; font-size: 0.9rem; font-weight: 700; color: #fff; user-select: none; }
+.pricing-feature-header:hover { color: rgba(255,255,255,0.85); }
+.pricing-chevron { font-size: 0.75rem; transition: transform 0.3s; color: rgba(255,255,255,0.6); }
+.pricing-feature-row.open .pricing-chevron { transform: rotate(180deg); }
+.pricing-feature-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.pricing-feature-body ul { list-style: none; padding: 0 0 14px 0; display: flex; flex-direction: column; gap: 6px; }
+.pricing-feature-body ul li { font-size: 0.82rem; color: rgba(255,255,255,0.8); padding-left: 14px; position: relative; }
+.pricing-feature-body ul li::before { content: '–'; position: absolute; left: 0; color: rgba(255,255,255,0.5); }
+.pricing-cta-btn { display: block; width: 100%; text-align: center; margin-top: 24px; padding: 16px; border-radius: 12px; border: 2px solid #fff; font-family: 'Sora', sans-serif; font-weight: 900; font-size: 1rem; color: #7a4800; background: #fff; transition: all 0.25s; letter-spacing: 0.04em; }
+.pricing-cta-btn:hover { background: transparent; color: #fff; transform: translateY(-2px); }
+.pricing-cta-note { font-size: 0.75rem; color: rgba(255,255,255,0.65); text-align: center; margin-top: 10px; }
+.upsells-title { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 800; color: var(--text-muted); text-align: center; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px; }
+.upsells-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 860px; margin: 0 auto; }
+@media (max-width: 800px) { .upsells-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .upsells-grid { grid-template-columns: 1fr; } }
+.upsell-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+.upsell-header { background: rgba(255,255,255,0.04); padding: 16px 20px; font-family: 'Sora', sans-serif; font-size: 0.88rem; font-weight: 800; color: var(--text); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+.upsell-chevron { font-size: 0.72rem; color: var(--text-muted); transition: transform 0.3s; }
+.upsell-card.open .upsell-chevron { transform: rotate(180deg); }
+.upsell-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.upsell-body-inner { padding: 16px 20px; }
+.upsell-body-inner ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.upsell-body-inner ul li { font-size: 0.82rem; color: var(--text-muted); display: flex; gap: 8px; }
+.upsell-body-inner ul li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+.upsell-tag { font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 100px; font-family: 'Sora', sans-serif; }
+.upsell-tag.add-on { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.2); }
+.roi-callout { max-width: 680px; margin: 0 auto 56px; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.03)); border: 1px solid rgba(124,58,237,0.3); border-radius: var(--r-lg); padding: 28px 32px; text-align: center; }
+.roi-callout h3 { font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.roi-callout p { font-size: 0.9rem; max-width: 520px; margin: 0 auto; }
+
+/* Calculator */
+.calc-wrap { max-width: 860px; margin: 48px auto 0; }
+.calc-sliders { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 36px 40px; margin-bottom: 24px; }
+.calc-slider-group { margin-bottom: 32px; }
+.calc-slider-group:last-child { margin-bottom: 0; }
+.calc-slider-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; font-size: 0.9rem; color: var(--text-muted); }
+.calc-slider-label strong { font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 800; background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.calc-range { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 3px; outline: none; cursor: pointer; background: linear-gradient(to right, var(--gold) 0%, var(--gold) var(--pct, 30%), var(--border) var(--pct, 30%), var(--border) 100%); }
+.calc-range::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold2)); cursor: pointer; box-shadow: 0 2px 10px rgba(201,168,76,0.5); transition: transform 0.15s; }
+.calc-range::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.calc-range::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--gold), var(--gold2)); cursor: pointer; box-shadow: 0 2px 10px rgba(201,168,76,0.5); }
+.calc-range-ends { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; }
+.calc-results { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.calc-result-card { border-radius: var(--r); padding: 24px; background: var(--bg-card); border: 1px solid var(--border); }
+.calc-result-card.c-gold { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.05); }
+.calc-result-card.c-green { border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.05); }
+.calc-result-label { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px; }
+.calc-result-val { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.calc-result-val.c-white { background: none; -webkit-text-fill-color: var(--text); color: var(--text); }
+.calc-result-val.c-green-txt { background: none; -webkit-text-fill-color: #4ade80; color: #4ade80; }
+.calc-result-small { font-size: 1.1rem; }
+.calc-result-note { font-size: 0.73rem; color: var(--text-muted); margin-top: 6px; line-height: 1.4; }
+.calc-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.calc-stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; text-align: center; }
+.calc-stat-val { font-family: 'Sora', sans-serif; font-size: 1.7rem; font-weight: 800; background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+.calc-stat-lbl { font-size: 0.76rem; color: var(--text-muted); line-height: 1.4; }
+@media (max-width: 640px) { .calc-results { grid-template-columns: 1fr; } .calc-stat-row { grid-template-columns: 1fr; } .calc-sliders { padding: 24px 20px; } }
+</style>
+</head>
+<body>
+
+<canvas id="three-canvas"></canvas>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo-svg" aria-label="Drivyn Home">
+      <img src="drivyn-logo.png" alt="Drivyn" />
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#results">Results</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#contact" class="btn-nav">Get Free Audit</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="#services">Services</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#results">Results</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="btn btn-primary">Get Free Audit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="hero-dot"></span>
+          Websites &amp; AI Systems for Local Businesses
+        </div>
+        <h1>Stop Losing Jobs to Businesses That Just<span class="gold-text"> Look Better Online</span></h1>
+        <p>Drivyn builds revenue systems for local service businesses — high-converting websites, AI-powered follow-up, and automation that works while you're on the job.</p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn btn-primary btn-lg">Get Your Free Audit →</a>
+          <a href="#how-it-works" class="btn btn-secondary btn-lg">See How It Works ↓</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-val"><span data-count="7" data-suffix=" days">0</span></div>
+            <div class="stat-lbl">Setup &amp; live</div>
+          </div>
+          <div>
+            <div class="stat-val"><span data-count="100" data-suffix="%">0%</span></div>
+            <div class="stat-lbl">Done for you</div>
+          </div>
+        </div>
+        <div class="hero-canada">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 14" width="22" height="15" style="display:inline-block;vertical-align:middle;border-radius:2px;">
+            <rect width="20" height="14" fill="#fff"/><rect width="5" height="14" fill="#d52b1e"/>
+            <rect x="15" width="5" height="14" fill="#d52b1e"/>
+            <path d="M10 2 L11.2 5.2 L14.5 5.2 L11.8 7.1 L12.9 10.3 L10 8.4 L7.1 10.3 L8.2 7.1 L5.5 5.2 L8.8 5.2 Z" fill="#d52b1e"/>
+          </svg>
+          <span>By Canadians, for Canadians</span>
+        </div>
+      </div>
+      <div style="position:relative;">
+        <div class="notif">🔔 New Lead — Sarah M. just requested a quote</div>
+        <div class="hero-card tilt" id="hero-card">
+          <div class="dash-header">
+            <div class="dash-dots"><span></span><span></span><span></span></div>
+            <span class="dash-title">Drivyn Dashboard</span>
+            <span class="dash-live">● Live</span>
+          </div>
+          <div class="dash-big-lbl">Monthly Revenue Pipeline</div>
+          <div class="dash-big-val">$28,400</div>
+          <div class="dash-change">↑ 34% from last month</div>
+          <div class="dash-row">
+            <div class="dash-mini-card"><div class="dash-mini-val">47</div><div class="dash-mini-lbl">Leads This Month</div></div>
+            <div class="dash-mini-card"><div class="dash-mini-val">31</div><div class="dash-mini-lbl">Booked Jobs</div></div>
+          </div>
+          <div class="dash-bar-wrap">
+            <div class="dash-bar-row"><span>Lead → Booked Rate</span><span>78%</span></div>
+            <div class="dash-track"><div class="dash-fill" id="dash-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PAIN POINTS -->
+<section class="section section-bg2" id="problem">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">Sound Familiar?</div>
+      <h2>Your Business Is Better Than Your<br>Online Presence Suggests</h2>
+      <p>Most local service businesses do great work. The problem isn't quality — it's that the wrong businesses are winning online.</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card reveal"><div class="pain-icon">🌐</div><div class="pain-title">Your Website Looks Like It's From 2015</div><p>Customers judge you before you ever pick up the phone. An outdated website quietly costs you jobs you never knew you lost.</p></div>
+      <div class="pain-card reveal d1"><div class="pain-icon">📵</div><div class="pain-title">Missed Calls = Missed Revenue</div><p>You're on the job, someone calls, they get voicemail. By the time you call back, they've booked someone else. That's expensive.</p></div>
+      <div class="pain-card reveal d2"><div class="pain-icon">⏱️</div><div class="pain-title">Leads Go Cold Before You Follow Up</div><p>You're busy. Follow-up slips. 24–48 hours later that warm lead is gone. Manual follow-up doesn't scale.</p></div>
+      <div class="pain-card reveal d3"><div class="pain-icon">🔍</div><div class="pain-title">You're Invisible Where It Counts</div><p>If you're not showing up in local search, not collecting reviews, and not running a tight online profile — your competitor gets your calls.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">What We Build</div>
+      <h2>A Complete Revenue System.<br>Not Just a Website.</h2>
+      <p>Every tool we build has one job: make your business more money.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon">🖥️</div><div class="svc-name">High-Converting Website</div>
+        <p class="svc-desc">Built to get calls, not win design awards. Fast, mobile-first, and optimised from headline to CTA.</p>
+        <ul class="svc-list"><li>Mobile-first, lightning-fast load</li><li>Conversion-focused layout &amp; copy</li><li>SEO-ready from day one</li><li>Integrates with your booking system</li></ul>
+      </div>
+      <div class="svc-card featured reveal d1">
+        <div class="svc-badge">Most Popular</div>
+        <div class="svc-icon">🤖</div><div class="svc-name">AI Missed Call Text-Back</div>
+        <p class="svc-desc">When you can't answer, our AI texts the caller back instantly — captures details, answers questions, keeps the lead warm.</p>
+        <ul class="svc-list"><li>Responds in under 60 seconds</li><li>Captures name, job type, urgency</li><li>Qualifies before you call back</li><li>Works 24/7 — including weekends</li></ul>
+      </div>
+      <div class="svc-card reveal d2">
+        <div class="svc-icon">⚙️</div><div class="svc-name">CRM + Follow-Up Automation</div>
+        <p class="svc-desc">Every lead gets tracked, followed up, and nurtured automatically. Your pipeline runs itself.</p>
+        <ul class="svc-list"><li>Automated email &amp; SMS sequences</li><li>Lead status tracking &amp; alerts</li><li>Quote follow-up without lifting a finger</li><li>Re-engagement for old leads</li></ul>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🎯</div><div class="svc-name">Lead Capture &amp; Nurture</div>
+        <p class="svc-desc">Forms, chatbots, and landing pages that capture every enquiry — then automatically nurture them through to booking.</p>
+        <ul class="svc-list"><li>Multi-step quote request forms</li><li>Instant lead notification alerts</li><li>Nurture sequences that close</li><li>Integrates with any booking tool</li></ul>
+      </div>
+      <div class="svc-card reveal d1">
+        <div class="svc-icon">⭐</div><div class="svc-name">Reputation Management</div>
+        <p class="svc-desc">5-star reviews don't happen by accident. We build systems that ask every happy customer — so your reputation grows automatically.</p>
+        <ul class="svc-list"><li>Automated post-job review requests</li><li>Google &amp; Facebook review growth</li><li>Negative review interception</li><li>Review showcase on your website</li></ul>
+      </div>
+      <div class="svc-card reveal d2">
+        <div class="svc-icon">📊</div><div class="svc-name">Reporting &amp; Visibility</div>
+        <p class="svc-desc">Know exactly where your leads come from, what's converting, and what's not. A clean dashboard without the noise.</p>
+        <ul class="svc-list"><li>Monthly performance reports</li><li>Lead source tracking</li><li>Conversion rate visibility</li><li>Clear ROI on everything we build</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section class="section section-bg2" id="how-it-works">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">The Process</div>
+      <h2>Up and Running in 3 Simple Steps</h2>
+      <p>Most clients have a live, lead-generating system within 7–10 days. Here's exactly how it works.</p>
+    </div>
+    <div class="steps-grid steps-3">
+      <div class="step-card reveal">
+        <div class="step-num">01</div><div class="step-title">20-Min Demo Call</div>
+        <p>Book a quick call. We show you exactly how the AI system works, walk through what we'd build for your specific business, and answer every question you have. Zero commitment required.</p>
+      </div>
+      <div class="step-card reveal d1">
+        <div class="step-num">02</div><div class="step-title">We Build Everything</div>
+        <p>You focus on your business. We handle your website, AI receptionist, automated follow-up, and every integration — fully configured and tested. Ready in 7–10 days. You don't lift a finger.</p>
+      </div>
+      <div class="step-card reveal d2">
+        <div class="step-num">03</div><div class="step-title">25-Min Walkthrough &amp; You're Live</div>
+        <p>We hop on a call, show you your new system, and send over your login credentials. That's genuinely it — most clients are surprised at how easy it is. Then the leads start coming in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY DRIVYN + RESULTS -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="why-grid">
+      <div>
+        <div class="label">Why Drivyn</div>
+        <h2>We're Not an Agency.<br>We're <span class="gold-text">In Your Corner.</span></h2>
+        <p style="margin-bottom:0;">Generic agencies sell you a website and disappear. We build revenue systems and stay involved — because our success is tied directly to yours.</p>
+        <div class="why-points">
+          <div class="why-point reveal"><div class="why-icon">💰</div><div><div class="why-title">We Measure Success in Jobs Booked — Not Impressions</div><p>Every decision we make is about driving real calls, real enquiries, and real revenue.</p></div></div>
+          <div class="why-point reveal d1"><div class="why-icon">🏗️</div><div><div class="why-title">Built Specifically for Service Businesses</div><p>We understand the busy seasons, missed calls, and word-of-mouth dependency. We build for your world.</p></div></div>
+          <div class="why-point reveal d2"><div class="why-icon">⚡</div><div><div class="why-title">Everything Done For You</div><p>You don't need to understand tech, automation, or SEO. You just show up and deliver great work.</p></div></div>
+          <div class="why-point reveal d3"><div class="why-icon">🤝</div><div><div class="why-title">You Work With Us — Not a Faceless Team</div><p>You deal directly with your Project Manager and our specialist. No support tickets, no rotating reps. Real people who know your business and actually pick up.</p></div></div>
+        </div>
+      </div>
+      <div class="result-card reveal d1">
+        <div class="result-badge-pkg">Premium Growth Package</div>
+        <div class="result-sub">Every add-on. Fully managed. Including $500 in Google Ads — typically generating 25–40 qualified leads per month.</div>
+        <p style="font-size:0.88rem;margin-bottom:0;">At an average job value of $800–$1,500, one conversion more than covers your entire monthly investment. Everything else is revenue you wouldn't have had. Realistic expectations — not inflated promises.</p>
+        <div class="result-mini-grid">
+          <div class="result-mini"><div class="result-mini-val" style="font-size:1.2rem;">25–40</div><div class="result-mini-lbl">Qualified leads/mo on $500 ad spend</div></div>
+          <div class="result-mini"><div class="result-mini-val"><span data-count="7" data-suffix=" days">0</span></div><div class="result-mini-lbl">System built &amp; live</div></div>
+          <div class="result-mini"><div class="result-mini-val">&lt;60s</div><div class="result-mini-lbl">Missed call response time</div></div>
+          <div class="result-mini"><div class="result-mini-val"><span data-count="100" data-suffix="%">0%</span></div><div class="result-mini-lbl">Done for you</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPARISON -->
+<section class="section section-bg2" id="comparison">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">The Honest Comparison</div>
+      <h2>Drivyn vs. The Alternatives</h2>
+      <p>See exactly how we stack up against building it yourself or hiring a generic agency.</p>
+    </div>
+    <div class="comp-wrap reveal">
+      <table class="comp-table">
+        <thead><tr><th>What You Get</th><th>DIY / Template</th><th>Generic Agency</th><th class="col-drivyn">⚡ Drivyn</th></tr></thead>
+        <tbody>
+          <tr><td>Built to convert visitors to calls</td><td><span class="c-no">✗</span></td><td><span class="c-maybe">Sometimes</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>AI missed call &amp; lead follow-up</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>CRM &amp; automation included</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Reputation management system</td><td><span class="c-no">✗</span></td><td><span class="c-maybe">Extra cost</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Local SEO optimised</td><td><span class="c-no">✗</span></td><td><span class="c-maybe">Sometimes</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Ongoing support &amp; optimisation</td><td><span class="c-no">✗</span></td><td><span class="c-maybe">Extra cost</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Results-first approach</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td class="col-drivyn"><span class="c-yes">✓</span></td></tr>
+          <tr><td>Typical launch time</td><td>Whenever you finish</td><td>6–12 weeks</td><td class="col-drivyn"><span class="c-gold">~2 weeks</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEVER MISS A CALL CALCULATOR -->
+<section class="section" id="calculator">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">Never Miss a Call</div>
+      <h2>See What Missed Calls Are<br><span class="gold-text">Actually Costing You</span></h2>
+      <p>Most service businesses miss 6+ calls a day without realising it. Use the sliders below to see your real numbers.</p>
+    </div>
+    <div class="calc-wrap reveal">
+      <div class="calc-sliders">
+        <div class="calc-slider-group">
+          <div class="calc-slider-label"><span>Missed calls per day</span><strong id="calls-display">6</strong></div>
+          <input type="range" id="calls-slider" class="calc-range" min="1" max="20" value="6" />
+          <div class="calc-range-ends"><span>1</span><span>20</span></div>
+        </div>
+        <div class="calc-slider-group">
+          <div class="calc-slider-label"><span>Average job value</span><strong>$<span id="job-display">100</span></strong></div>
+          <input type="range" id="job-slider" class="calc-range" min="50" max="2000" step="50" value="100" />
+          <div class="calc-range-ends"><span>$50</span><span>$2,000</span></div>
+        </div>
+        <div class="calc-slider-group">
+          <div class="calc-slider-label"><span>Lead close rate</span><strong><span id="close-display">30</span>%</strong></div>
+          <input type="range" id="close-slider" class="calc-range" min="10" max="80" step="5" value="30" />
+          <div class="calc-range-ends"><span>10%</span><span>80%</span></div>
+        </div>
+      </div>
+      <div class="calc-results">
+        <div class="calc-result-card c-gold"><div class="calc-result-label">Monthly Missed Revenue</div><div class="calc-result-val" id="monthly-val">$1,584</div></div>
+        <div class="calc-result-card c-gold"><div class="calc-result-label">Annual Missed Revenue</div><div class="calc-result-val" id="annual-val">$19,008</div></div>
+        <div class="calc-result-card"><div class="calc-result-label">Cost of a Human Receptionist in Canada</div><div class="calc-result-val c-white">~$52,000<span class="calc-result-small">/yr</span></div><div class="calc-result-note">Avg. salary ~$40,000 + payroll taxes, benefits &amp; vacation pay (Job Bank Canada)</div></div>
+        <div class="calc-result-card c-green"><div class="calc-result-label">What You Keep With Drivyn AI</div><div class="calc-result-val c-green-txt" id="saved-val">$71,008</div><div class="calc-result-note">Recovered missed revenue + receptionist savings</div></div>
+      </div>
+      <div class="calc-stat-row">
+        <div class="calc-stat"><div class="calc-stat-val">85%</div><div class="calc-stat-lbl">of callers won't leave a voicemail or call back</div></div>
+        <div class="calc-stat"><div class="calc-stat-val">7×</div><div class="calc-stat-lbl">more likely to close a lead when responding within 1 hour</div></div>
+        <div class="calc-stat"><div class="calc-stat-val">$42K+</div><div class="calc-stat-lbl">average annual Canadian receptionist salary (Statistics Canada)</div></div>
+      </div>
+      <div class="text-center" style="margin-top:44px;">
+        <a href="#contact" class="btn btn-primary btn-lg">Stop Losing Revenue →</a>
+        <p style="margin-top:12px;font-size:0.82rem;color:var(--text-muted);">Book a free audit — no commitment, no pressure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">Simple Pricing</div>
+      <h2>One Plan. Everything Included.<br><span class="gold-text">No Surprises.</span></h2>
+      <p>We keep it simple so you never have to wonder what you're paying for or why. One booked job pays for the month.</p>
+    </div>
+    <div class="roi-callout reveal">
+      <h3>What does your monthly investment actually get you?</h3>
+      <p>A fully built revenue system — website, AI receptionist, automated follow-up, and every integration — running 24/7 without you lifting a finger. One booked job pays for the month. Everything else is profit you didn't have before.</p>
+    </div>
+    <div class="pricing-toggle-wrap">
+      <span class="pricing-toggle-label active" id="lbl-monthly">Monthly</span>
+      <label class="toggle-switch"><input type="checkbox" id="billing-toggle" /><span class="toggle-slider"></span></label>
+      <span class="pricing-toggle-label" id="lbl-annual">Annually <span class="save-badge">2 months FREE</span></span>
+    </div>
+    <div class="pricing-main-card reveal">
+      <span class="pricing-popular-tag">MOST POPULAR</span>
+      <div class="pricing-plan-name">Drivyn Growth System</div>
+      <div class="pricing-amount-wrap"><span class="pricing-sym">$</span><span class="pricing-num" id="price-num">297</span></div>
+      <div class="pricing-per" id="price-per">/mo &nbsp;·&nbsp; cancel anytime</div>
+      <div class="pricing-annual-note" id="annual-note">$2,970/yr — equivalent to 2 months free</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-feature-row"><div class="pricing-feature-header">High-Converting Website (10–20 pages)<span class="pricing-chevron">▼</span></div><div class="pricing-feature-body"><ul><li>Built &amp; hosted — no extra fees</li><li>Website chat that turns visitors into SMS conversations sent directly to your phone</li><li>Quote forms with instant text confirmation to you and your lead</li><li>Hyperlinked phone numbers &amp; click-to-call</li><li>Mobile-first, fast-loading, built to convert</li></ul></div></div>
+      <div class="pricing-feature-row"><div class="pricing-feature-header">Automated Lead Follow Up<span class="pricing-chevron">▼</span></div><div class="pricing-feature-body"><ul><li>Instant SMS confirmation sent to every website lead</li><li>Automated follow-up sequences so no lead goes cold</li><li>Looks like you replied — even when you're on the job</li></ul></div></div>
+      <div class="pricing-feature-row"><div class="pricing-feature-header">Missed Call Text Back<span class="pricing-chevron">▼</span></div><div class="pricing-feature-body"><ul><li>Responds within 60 seconds of a missed call</li><li>Responding within an hour makes you 7x more likely to qualify a lead</li><li>67% of customers go to a competitor if they don't get a fast response — this stops that</li><li>Works 24/7, including weekends and after hours</li></ul></div></div>
+      <div class="pricing-feature-row"><div class="pricing-feature-header">5-Star Review Automation<span class="pricing-chevron">▼</span></div><div class="pricing-feature-body"><ul><li>Automatically routes unhappy customers away from public reviews</li><li>Sends up to 4 gentle follow-up reminders to happy customers</li><li>Grows your Google &amp; Facebook rating on autopilot</li></ul></div></div>
+      <div class="pricing-feature-row"><div class="pricing-feature-header">One-Click Marketing Campaigns<span class="pricing-chevron">▼</span></div><div class="pricing-feature-body"><ul><li>Pre-built campaigns — you just click a button, we handle the rest</li><li>Referral campaigns: ask happy customers to send you their friends</li><li>Return customer campaigns: discount offers to bring past clients back</li></ul></div></div>
+      <div class="pricing-feature-row"><div class="pricing-feature-header">On-Site SEO <span style="font-size:0.72rem;opacity:0.7;font-weight:500;margin-left:8px;">(included)</span><span class="pricing-chevron">▼</span></div><div class="pricing-feature-body"><ul><li>Keyword research for your trade &amp; local area</li><li>All page content optimised for those keywords</li><li>Alt tags, JSON schema, meta titles &amp; descriptions</li><li>Image optimisation &amp; PageSpeed improvements</li><li><strong style="color:rgba(255,255,255,0.9);">Note:</strong> On-site SEO is included. Off-page SEO (backlinks, press releases, advanced campaigns) is available as an add-on.</li></ul></div></div>
+      <a href="#contact" class="pricing-cta-btn">BOOK A CALL</a>
+      <p class="pricing-cta-note">Starts with a free audit. No commitment required.</p>
+    </div>
+    <div class="upsells-title">Add-On Services</div>
+    <div class="upsells-grid reveal">
+      <div class="upsell-card"><div class="upsell-header">AI Receptionist<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>AI answers calls, qualifies leads, and books appointments</li><li>Handles FAQs, pricing questions, and job type screening</li><li>Works nights, weekends — never misses a call</li><li>Handoff summary sent to your phone after every call</li></ul></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">Google My Business Optimisation<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Full GMB profile audit &amp; revamp</li><li>Optimised for local keywords &amp; service area</li><li>Photo strategy, post cadence &amp; Q&amp;A setup</li><li>Helps you show up in the Google Map Pack</li></ul></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">Advanced SEO<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Backlink building &amp; directory submissions</li><li>Cloud stacks &amp; press releases</li><li>Heavy keyword research &amp; competitor analysis</li><li>Consistent blog content &amp; new landing pages</li></ul></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">Google Ads Management<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>PPC search ads targeting your exact service area</li><li>LSA (Local Services Ads) setup &amp; management</li><li>$500 ad spend typically generates 25–40 qualified leads</li><li>Full reporting — cost per lead, cost per booking</li></ul></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">CRM + Pipeline Upgrade<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Full sales pipeline with stage tracking</li><li>Quote follow-up automation sequences</li><li>Re-engagement campaigns for cold leads</li><li>Team access &amp; lead assignment</li></ul></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">Automated Lead Follow Up<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Multi-step SMS &amp; email nurture sequences that close deals</li><li>Automated quote follow-up — no lead goes cold</li><li>Re-engagement campaigns for leads that went quiet</li><li>Looks and feels like you replied — even when you're on the job</li></ul></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHO IT'S FOR -->
+<section class="section section-bg2" id="fit">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">Fit Check</div>
+      <h2>Is Drivyn Right for You?</h2>
+      <p>We work best with a specific type of business. The more honest we are upfront, the better the results.</p>
+    </div>
+    <div class="for-grid">
+      <div class="for-card yes reveal">
+        <div class="for-label">✓ This is for you</div>
+        <ul class="for-list">
+          <li><span>🏠</span> You're a local service business — trades, home services, automotive, cleaning</li>
+          <li><span>📞</span> You want more calls without spending more on ads</li>
+          <li><span>📈</span> You've outgrown word-of-mouth and need a consistent lead source</li>
+          <li><span>💼</span> You're serious about growth and willing to invest in the right tools</li>
+          <li><span>⏰</span> You're too busy to chase leads — you want the system to do it for you</li>
+          <li><span>⭐</span> You do great work and want your online reputation to reflect that</li>
+        </ul>
+      </div>
+      <div class="for-card no reveal d1">
+        <div class="for-label">✗ Not the right fit</div>
+        <ul class="for-list">
+          <li><span>🎨</span> You want a portfolio piece with no interest in conversion</li>
+          <li><span>🐢</span> You're not ready to respond to leads when they come in</li>
+          <li><span>💸</span> You're looking for the cheapest option — not the best ROI</li>
+          <li><span>🤷</span> You're a side hustle not yet committed to growing</li>
+          <li><span>🔒</span> You want total control and to DIY everything yourself</li>
+          <li><span>📉</span> You're not willing to trust a proven system</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="text-center">
+      <div class="label">FAQ</div>
+      <h2>Questions We Get Every Week</h2>
+      <p>If you're thinking it, someone else already asked it.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal"><div class="faq-q"><span>How much does it cost?</span><span class="faq-icon">+</span></div><div class="faq-body"><div class="faq-body-inner">Our systems start from $1,500 for a standalone website, up to full revenue system packages. The better question is: what's a booked job worth to you? Most clients recover the investment within the first 30–60 days of going live. Every engagement starts with a free audit so you know exactly what you're getting before committing.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q"><span>How long does it take to go live?</span><span class="faq-icon">+</span></div><div class="faq-body"><div class="faq-body-inner">Most builds go live within 7–10 days. We move fast deliberately — every day your current setup is losing you leads. Once we have your content and onboarding info, we build quickly and keep you in the loop throughout.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q"><span>What kind of results can I realistically expect?</span><span class="faq-icon">+</span></div><div class="faq-body"><div class="faq-body-inner">Every business is different, but our clients typically see a meaningful increase in inbound calls within the first 30 days, and a significant jump in booked jobs by day 60–90. The biggest wins usually come from the AI follow-up and missed call systems — these often generate ROI in the first week alone.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q"><span>Do I need to be tech-savvy?</span><span class="faq-icon">+</span></div><div class="faq-body"><div class="faq-body-inner">Not at all. We handle the entire build, setup, and launch. Once everything is ready, we do a 25-minute walkthrough call — we show you your system and send over your credentials. That's it. After that, most of it runs on its own. Our clients are busy tradespeople and business owners — not tech people. That's exactly the point.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q"><span>I already have a website. Can you work with that?</span><span class="faq-icon">+</span></div><div class="faq-body"><div class="faq-body-inner">We'll audit it first. If it's already converting well, we'll layer our AI and automation systems on top. If it's not converting (most aren't), we'll show you the data and recommend a rebuild. Either way, you leave the audit with clear answers.</div></div></div>
+      <div class="faq-item reveal"><div class="faq-q"><span>Is there ongoing support after launch?</span><span class="faq-icon">+</span></div><div class="faq-body"><div class="faq-body-inner">Yes — every client gets ongoing support directly from your Project Manager and our specialist. Monthly performance reports, optimisations based on real data, and real people who actually pick up. We build long-term relationships with the businesses we work with — not support tickets.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT / CTA -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="label" style="justify-content:center;margin:0 auto 20px;">Let's Talk</div>
+      <h2>Start With a Free Audit.<br><span class="gold-text">No Pressure. Just Clarity.</span></h2>
+      <p>Pick a time below — book your free 20-minute audit call directly on our calendar.</p>
+
+      <div style="margin:32px 0 8px;">
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/booking/ITTFcBq0sQKIrdGoUWVd"
+          style="width:100%;border:none;overflow:hidden;border-radius:12px;min-height:700px;"
+          scrolling="no"
+          id="ITTFcBq0sQKIrdGoUWVd_booking">
+        </iframe>
+        <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+        <script>
+          /* GHL's form_embed.js injects a noindex meta — remove it */
+          (function strip(){
+            document.querySelectorAll('meta[name="robots"]').forEach(function(m){
+              if((m.getAttribute('content')||'').toLowerCase().includes('noindex')) m.remove();
+            });
+          })();
+          /* Re-run after a short delay in case it's injected async */
+          setTimeout(function(){
+            document.querySelectorAll('meta[name="robots"]').forEach(function(m){
+              if((m.getAttribute('content')||'').toLowerCase().includes('noindex')) m.remove();
+            });
+          }, 2000);
+        </script>
+      </div>
+
+      <p class="cta-note">No commitment. No sales pressure. Just a straight conversation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#"><img src="drivyn-logo.png" alt="Drivyn" class="footer-logo-img" /></a>
+        <p>We build websites and AI systems that help local service businesses make more money.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <div class="footer-col-links">
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#results">Why Drivyn</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-col-links">
+          <a href="#services">Website Design</a>
+          <a href="#services">AI Receptionist</a>
+          <a href="#services">CRM &amp; Automation</a>
+          <a href="#services">Reputation Systems</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Get Started</div>
+        <div class="footer-col-links">
+          <a href="#contact">Free Audit</a>
+          <a href="#contact">Book a Call</a>
+          <a href="#faq">FAQ</a>
+          <a href="#calculator">Revenue Calculator</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Drivyn Direct Inc. All rights reserved.</span>
+      <span><a href="/privacy" style="color:var(--text-muted);text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms" style="color:var(--text-muted);text-decoration:underline;text-underline-offset:3px;">Terms of Service</a> &nbsp;·&nbsp; Built to make businesses more money. &nbsp;·&nbsp; <a href="/start" style="color:rgba(242,240,248,0.18);font-size:0.72rem;text-decoration:none;">Client Portal</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+/* ════════════════════════════════════════
+   GHL WEBHOOK — paste your URL below
+════════════════════════════════════════ */
+
+/* ════════════════════════════════════════
+   THREE.JS PARTICLE BACKGROUND
+════════════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('three-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 0, 80);
+  const PARTICLE_COUNT = 120;
+  const positions = new Float32Array(PARTICLE_COUNT * 3);
+  const velocities = [];
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    positions[i*3]   = (Math.random()-0.5)*160;
+    positions[i*3+1] = (Math.random()-0.5)*120;
+    positions[i*3+2] = (Math.random()-0.5)*60;
+    velocities.push({ x:(Math.random()-0.5)*0.04, y:(Math.random()-0.5)*0.04, z:(Math.random()-0.5)*0.02 });
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const mat = new THREE.PointsMaterial({ color:0x7c3aed, size:0.55, transparent:true, opacity:0.55, sizeAttenuation:true });
+  scene.add(new THREE.Points(geo, mat));
+  const MAX_CONNECTIONS = 200;
+  const linePositions = new Float32Array(MAX_CONNECTIONS * 6);
+  const lineGeo = new THREE.BufferGeometry();
+  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+  scene.add(new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({ color:0x7c3aed, transparent:true, opacity:0.1 })));
+  const shapes = [];
+  const wireMat = new THREE.MeshBasicMaterial({ color:0x8b5cf6, wireframe:true, transparent:true, opacity:0.14 });
+  [[new THREE.IcosahedronGeometry(4,0),[-45,30,-20]],[new THREE.OctahedronGeometry(3,0),[50,-20,-30]],[new THREE.TetrahedronGeometry(3,0),[-60,-35,-10]],[new THREE.IcosahedronGeometry(2.5,0),[40,40,-25]]].forEach(([g,p])=>{
+    const m = new THREE.Mesh(g, wireMat.clone());
+    m.position.set(...p);
+    m.userData = { rotX:Math.random()*0.003, rotY:Math.random()*0.005, rotZ:Math.random()*0.002 };
+    scene.add(m); shapes.push(m);
+  });
+  let mouseX=0, mouseY=0, scrollY=0;
+  document.addEventListener('mousemove', e=>{ mouseX=(e.clientX/window.innerWidth-0.5)*2; mouseY=(e.clientY/window.innerHeight-0.5)*2; });
+  window.addEventListener('scroll', ()=>{ scrollY=window.scrollY; }, {passive:true});
+  const pos = geo.attributes.position;
+  let frame = 0;
+  function animate() {
+    requestAnimationFrame(animate); frame++;
+    for (let i=0;i<PARTICLE_COUNT;i++) {
+      pos.array[i*3]+=velocities[i].x; pos.array[i*3+1]+=velocities[i].y; pos.array[i*3+2]+=velocities[i].z;
+      if(pos.array[i*3]>80) pos.array[i*3]=-80; if(pos.array[i*3]<-80) pos.array[i*3]=80;
+      if(pos.array[i*3+1]>60) pos.array[i*3+1]=-60; if(pos.array[i*3+1]<-60) pos.array[i*3+1]=60;
+    }
+    pos.needsUpdate=true;
+    if(frame%2===0){
+      let c=0; const lp=lineGeo.attributes.position.array;
+      for(let i=0;i<PARTICLE_COUNT&&c<MAX_CONNECTIONS;i++) for(let j=i+1;j<PARTICLE_COUNT&&c<MAX_CONNECTIONS;j++){
+        const dx=pos.array[i*3]-pos.array[j*3], dy=pos.array[i*3+1]-pos.array[j*3+1], dz=pos.array[i*3+2]-pos.array[j*3+2];
+        if(Math.sqrt(dx*dx+dy*dy+dz*dz)<20){ lp[c*6]=pos.array[i*3];lp[c*6+1]=pos.array[i*3+1];lp[c*6+2]=pos.array[i*3+2];lp[c*6+3]=pos.array[j*3];lp[c*6+4]=pos.array[j*3+1];lp[c*6+5]=pos.array[j*3+2];c++; }
+      }
+      lineGeo.setDrawRange(0,c*2); lineGeo.attributes.position.needsUpdate=true;
+    }
+    shapes.forEach(s=>{ s.rotation.x+=s.userData.rotX; s.rotation.y+=s.userData.rotY; s.rotation.z+=s.userData.rotZ; });
+    camera.position.x+=(mouseX*8-camera.position.x)*0.03;
+    camera.position.y+=(-mouseY*6-camera.position.y)*0.03;
+    camera.position.z=80-scrollY*0.015;
+    camera.lookAt(scene.position);
+    renderer.render(scene, camera);
+  }
+  animate();
+  window.addEventListener('resize', ()=>{ camera.aspect=window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth,window.innerHeight); });
+})();
+
+/* NAV */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=>{ nav.classList.toggle('scrolled', window.scrollY>24); }, {passive:true});
+const navToggle = document.getElementById('nav-toggle');
+const navMobile = document.getElementById('nav-mobile');
+navToggle.addEventListener('click', ()=>{ navMobile.classList.toggle('open'); });
+navMobile.querySelectorAll('a').forEach(a=>{ a.addEventListener('click', ()=>navMobile.classList.remove('open')); });
+
+/* HERO CARD TILT */
+const heroCard = document.getElementById('hero-card');
+if (heroCard) {
+  heroCard.parentElement.addEventListener('mousemove', e=>{
+    const rect=heroCard.getBoundingClientRect();
+    const x=(e.clientX-rect.left)/rect.width-0.5, y=(e.clientY-rect.top)/rect.height-0.5;
+    heroCard.style.transform=`perspective(800px) rotateY(${x*14}deg) rotateX(${-y*10}deg) translateZ(10px)`;
+  });
+  heroCard.parentElement.addEventListener('mouseleave', ()=>{ heroCard.style.transform='perspective(800px) rotateY(0) rotateX(0) translateZ(0)'; });
+}
+
+/* DASH BAR */
+setTimeout(()=>{ const f=document.getElementById('dash-fill'); if(f) f.style.width='78%'; }, 800);
+
+/* SCROLL REVEAL */
+const revealObs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } }); }, {threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+/* COUNT-UP */
+function countUp(el) {
+  const target=parseInt(el.dataset.count,10), suffix=el.dataset.suffix||'', dur=1800, step=dur/target;
+  let cur=0;
+  const timer=setInterval(()=>{ cur=Math.min(cur+Math.ceil(target/60),target); el.textContent=cur+suffix; if(cur>=target) clearInterval(timer); }, step);
+}
+const countObs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.querySelectorAll('[data-count]').forEach(countUp); countObs.unobserve(e.target); } }); }, {threshold:0.3});
+document.querySelectorAll('.hero-stats, .result-card').forEach(el=>countObs.observe(el));
+
+/* FAQ ACCORDION */
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click', ()=>{
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>{ i.classList.remove('open'); i.querySelector('.faq-body').style.maxHeight=null; });
+    if(!isOpen){ item.classList.add('open'); const b=item.querySelector('.faq-body'); b.style.maxHeight=b.scrollHeight+'px'; }
+  });
+});
+
+/* SMOOTH SCROLL */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+
+/* PRICING ACCORDIONS */
+document.querySelectorAll('.pricing-feature-header').forEach(header=>{
+  header.addEventListener('click', ()=>{
+    const row=header.parentElement, body=row.querySelector('.pricing-feature-body'), isOpen=row.classList.contains('open');
+    document.querySelectorAll('.pricing-feature-row').forEach(r=>{ r.classList.remove('open'); r.querySelector('.pricing-feature-body').style.maxHeight=null; });
+    if(!isOpen){ row.classList.add('open'); body.style.maxHeight=body.scrollHeight+'px'; }
+  });
+});
+document.querySelectorAll('.upsell-header').forEach(header=>{
+  header.addEventListener('click', ()=>{
+    const card=header.parentElement, body=card.querySelector('.upsell-body'), isOpen=card.classList.contains('open');
+    card.classList.toggle('open',!isOpen); body.style.maxHeight=isOpen?null:body.scrollHeight+'px';
+  });
+});
+
+/* BILLING TOGGLE */
+const billingToggle=document.getElementById('billing-toggle');
+if(billingToggle){
+  billingToggle.addEventListener('change', ()=>{
+    const isAnnual=billingToggle.checked;
+    document.getElementById('price-num').textContent=isAnnual?'2,970':'297';
+    document.getElementById('price-per').textContent=isAnnual?'/yr  ·  cancel anytime':'/mo  ·  cancel anytime';
+    document.getElementById('annual-note').classList.toggle('show',isAnnual);
+    document.getElementById('lbl-monthly').classList.toggle('active',!isAnnual);
+    document.getElementById('lbl-annual').classList.toggle('active',isAnnual);
+  });
+}
+
+/* CALCULATOR */
+(function(){
+  const callsSlider=document.getElementById('calls-slider');
+  const jobSlider=document.getElementById('job-slider');
+  const closeSlider=document.getElementById('close-slider');
+  if(!callsSlider) return;
+  const RECEPTIONIST_ANNUAL=52000, WORK_DAYS=22;
+  function setFill(s){ const pct=((s.value-s.min)/(s.max-s.min))*100; s.style.setProperty('--pct',pct+'%'); }
+  function fmt(n){ return '$'+Math.round(n).toLocaleString('en-CA'); }
+  function update(){
+    const calls=+callsSlider.value, jobVal=+jobSlider.value, close=+closeSlider.value/100;
+    document.getElementById('calls-display').textContent=calls;
+    document.getElementById('job-display').textContent=(+jobSlider.value).toLocaleString('en-CA');
+    document.getElementById('close-display').textContent=+closeSlider.value;
+    setFill(callsSlider); setFill(jobSlider); setFill(closeSlider);
+    const monthly=Math.round(calls*WORK_DAYS*close*jobVal);
+    document.getElementById('monthly-val').textContent=fmt(monthly);
+    document.getElementById('annual-val').textContent=fmt(monthly*12);
+    document.getElementById('saved-val').textContent=fmt(monthly*12+RECEPTIONIST_ANNUAL);
+  }
+  callsSlider.addEventListener('input',update);
+  jobSlider.addEventListener('input',update);
+  closeSlider.addEventListener('input',update);
+  update();
+})();
+
+/* LOGO — remove white background via canvas */
+(function(){
+  function stripWhiteBg(img){
+    const canvas=document.createElement('canvas');
+    canvas.width=img.naturalWidth; canvas.height=img.naturalHeight;
+    const ctx=canvas.getContext('2d');
+    ctx.drawImage(img,0,0);
+    const d=ctx.getImageData(0,0,canvas.width,canvas.height);
+    const px=d.data;
+    for(let i=0;i<px.length;i+=4){
+      const r=px[i],g=px[i+1],b=px[i+2];
+      // make near-white pixels transparent
+      if(r>220&&g>220&&b>220){
+        const brightness=Math.max(r,g,b);
+        px[i+3]=Math.round((1-(brightness-220)/35)*255*((255-brightness)/35));
+        px[i+3]=Math.max(0,Math.min(255,px[i+3]));
+        if(r>235&&g>235&&b>235) px[i+3]=0;
+      }
+    }
+    ctx.putImageData(d,0,0);
+    img.src=canvas.toDataURL('image/png');
+  }
+  function processLogos(){
+    document.querySelectorAll('.nav-logo-svg img, .footer-logo-img').forEach(function(img){
+      if(img.complete&&img.naturalWidth>0){ stripWhiteBg(img); }
+      else{ img.addEventListener('load',function(){ stripWhiteBg(img); }); }
+    });
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',processLogos); }
+  else{ processLogos(); }
+})();
+
+</script>
+</body>
+</html>
