@@ -343,6 +343,8 @@ nav, section, footer { position: relative; z-index: 1; }
 .upsell-body-inner ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
 .upsell-body-inner ul li { font-size: 0.82rem; color: var(--text-muted); display: flex; gap: 8px; }
 .upsell-body-inner ul li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+.upsell-cta-btn { display: block; margin-top: 16px; text-align: center; padding: 10px 16px; border-radius: 8px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-family: 'Sora', sans-serif; font-size: 0.8rem; font-weight: 700; transition: all 0.2s; }
+.upsell-cta-btn:hover { background: rgba(201,168,76,0.22); border-color: var(--gold); }
 .upsell-tag { font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 100px; font-family: 'Sora', sans-serif; }
 .upsell-tag.add-on { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.2); }
 .roi-callout { max-width: 680px; margin: 0 auto 56px; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.03)); border: 1px solid rgba(124,58,237,0.3); border-radius: var(--r-lg); padding: 28px 32px; text-align: center; }
@@ -683,14 +685,14 @@ nav, section, footer { position: relative; z-index: 1; }
     <div class="pricing-toggle-wrap">
       <span class="pricing-toggle-label active" id="lbl-monthly">Monthly</span>
       <label class="toggle-switch"><input type="checkbox" id="billing-toggle" /><span class="toggle-slider"></span></label>
-      <span class="pricing-toggle-label" id="lbl-annual">Annually <span class="save-badge">2 months FREE</span></span>
+      <span class="pricing-toggle-label" id="lbl-annual">Annually <span class="save-badge">Save $594</span></span>
     </div>
     <div class="pricing-main-card reveal">
       <span class="pricing-popular-tag">MOST POPULAR</span>
       <div class="pricing-plan-name">Drivyn Growth System</div>
       <div class="pricing-amount-wrap"><span class="pricing-sym">$</span><span class="pricing-num" id="price-num">297</span></div>
       <div class="pricing-per" id="price-per">/mo &nbsp;·&nbsp; cancel anytime</div>
-      <div class="pricing-annual-note" id="annual-note">$2,970/yr — equivalent to 2 months free</div>
+      <div class="pricing-annual-note" id="annual-note">Billed as $2,970/yr — you save $594</div>
       <div class="pricing-divider"></div>
       <div class="pricing-feature-row"><div class="pricing-feature-header">High-Converting Website (10–20 pages)<span class="pricing-chevron">▼</span></div><div class="pricing-feature-body"><ul><li>Built &amp; hosted — no extra fees</li><li>Website chat that turns visitors into SMS conversations sent directly to your phone</li><li>Quote forms with instant text confirmation to you and your lead</li><li>Hyperlinked phone numbers &amp; click-to-call</li><li>Mobile-first, fast-loading, built to convert</li></ul></div></div>
       <div class="pricing-feature-row"><div class="pricing-feature-header">Automated Lead Follow Up<span class="pricing-chevron">▼</span></div><div class="pricing-feature-body"><ul><li>Instant SMS confirmation sent to every website lead</li><li>Automated follow-up sequences so no lead goes cold</li><li>Looks like you replied — even when you're on the job</li></ul></div></div>
@@ -703,12 +705,12 @@ nav, section, footer { position: relative; z-index: 1; }
     </div>
     <div class="upsells-title">Add-On Services</div>
     <div class="upsells-grid reveal">
-      <div class="upsell-card"><div class="upsell-header">AI Receptionist<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>AI answers calls, qualifies leads, and books appointments</li><li>Handles FAQs, pricing questions, and job type screening</li><li>Works nights, weekends — never misses a call</li><li>Handoff summary sent to your phone after every call</li></ul></div></div></div>
-      <div class="upsell-card"><div class="upsell-header">Google My Business Optimisation<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Full GMB profile audit &amp; revamp</li><li>Optimised for local keywords &amp; service area</li><li>Photo strategy, post cadence &amp; Q&amp;A setup</li><li>Helps you show up in the Google Map Pack</li></ul></div></div></div>
-      <div class="upsell-card"><div class="upsell-header">Advanced SEO<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Backlink building &amp; directory submissions</li><li>Cloud stacks &amp; press releases</li><li>Heavy keyword research &amp; competitor analysis</li><li>Consistent blog content &amp; new landing pages</li></ul></div></div></div>
-      <div class="upsell-card"><div class="upsell-header">Google Ads Management<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>PPC search ads targeting your exact service area</li><li>LSA (Local Services Ads) setup &amp; management</li><li>$500 ad spend typically generates 25–40 qualified leads</li><li>Full reporting — cost per lead, cost per booking</li></ul></div></div></div>
-      <div class="upsell-card"><div class="upsell-header">CRM + Pipeline Upgrade<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Full sales pipeline with stage tracking</li><li>Quote follow-up automation sequences</li><li>Re-engagement campaigns for cold leads</li><li>Team access &amp; lead assignment</li></ul></div></div></div>
-      <div class="upsell-card"><div class="upsell-header">Automated Lead Follow Up<span class="upsell-tag add-on">Add-on</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Multi-step SMS &amp; email nurture sequences that close deals</li><li>Automated quote follow-up — no lead goes cold</li><li>Re-engagement campaigns for leads that went quiet</li><li>Looks and feels like you replied — even when you're on the job</li></ul></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">AI Receptionist<span class="upsell-tag add-on">Inquire Within</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>AI answers calls, qualifies leads, and books appointments</li><li>Handles FAQs, pricing questions, and job type screening</li><li>Works nights, weekends — never misses a call</li><li>Handoff summary sent to your phone after every call</li></ul><a href="#contact" class="upsell-cta-btn">Book a Call →</a></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">Google My Business Optimisation<span class="upsell-tag add-on">Inquire Within</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Full GMB profile audit &amp; revamp</li><li>Optimised for local keywords &amp; service area</li><li>Photo strategy, post cadence &amp; Q&amp;A setup</li><li>Helps you show up in the Google Map Pack</li></ul><a href="#contact" class="upsell-cta-btn">Book a Call →</a></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">Advanced SEO<span class="upsell-tag add-on">Inquire Within</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Backlink building &amp; directory submissions</li><li>Cloud stacks &amp; press releases</li><li>Heavy keyword research &amp; competitor analysis</li><li>Consistent blog content &amp; new landing pages</li></ul><a href="#contact" class="upsell-cta-btn">Book a Call →</a></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">Google Ads Management<span class="upsell-tag add-on">Inquire Within</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>PPC search ads targeting your exact service area</li><li>LSA (Local Services Ads) setup &amp; management</li><li>$500 ad spend typically generates 25–40 qualified leads</li><li>Full reporting — cost per lead, cost per booking</li></ul><a href="#contact" class="upsell-cta-btn">Book a Call →</a></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">CRM + Pipeline Upgrade<span class="upsell-tag add-on">Inquire Within</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Full sales pipeline with stage tracking</li><li>Quote follow-up automation sequences</li><li>Re-engagement campaigns for cold leads</li><li>Team access &amp; lead assignment</li></ul><a href="#contact" class="upsell-cta-btn">Book a Call →</a></div></div></div>
+      <div class="upsell-card"><div class="upsell-header">Automated Lead Follow Up<span class="upsell-tag add-on">Inquire Within</span></div><div class="upsell-body"><div class="upsell-body-inner"><ul><li>Multi-step SMS &amp; email nurture sequences that close deals</li><li>Automated quote follow-up — no lead goes cold</li><li>Re-engagement campaigns for leads that went quiet</li><li>Looks and feels like you replied — even when you're on the job</li></ul><a href="#contact" class="upsell-cta-btn">Book a Call →</a></div></div></div>
     </div>
   </div>
 </section>
@@ -1001,8 +1003,8 @@ const billingToggle=document.getElementById('billing-toggle');
 if(billingToggle){
   billingToggle.addEventListener('change', ()=>{
     const isAnnual=billingToggle.checked;
-    document.getElementById('price-num').textContent=isAnnual?'2,970':'297';
-    document.getElementById('price-per').textContent=isAnnual?'/yr  ·  cancel anytime':'/mo  ·  cancel anytime';
+    document.getElementById('price-num').textContent=isAnnual?'247':'297';
+    document.getElementById('price-per').textContent=isAnnual?'/mo  ·  billed as $2,970/yr':'/mo  ·  cancel anytime';
     document.getElementById('annual-note').classList.toggle('show',isAnnual);
     document.getElementById('lbl-monthly').classList.toggle('active',!isAnnual);
     document.getElementById('lbl-annual').classList.toggle('active',isAnnual);
