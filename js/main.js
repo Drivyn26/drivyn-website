@@ -107,45 +107,6 @@
     });
   });
 
-  /* ── MISSED REVENUE TRACKER ── */
-  const missedLeadsSlider = document.querySelector('#missed-leads-slider');
-  const clientValueSlider = document.querySelector('#client-value-slider');
-  const closeRateSlider = document.querySelector('#close-rate-slider');
-
-  if (missedLeadsSlider && clientValueSlider && closeRateSlider) {
-    const missedLeadsValue = document.querySelector('#missed-leads-value');
-    const clientValueValue = document.querySelector('#client-value-value');
-    const closeRateValue = document.querySelector('#close-rate-value');
-    const monthlyMissedRevenue = document.querySelector('#monthly-missed-revenue');
-    const annualMissedRevenue = document.querySelector('#annual-missed-revenue');
-
-    const formatCurrency = (num) => new Intl.NumberFormat('en-CA', {
-      style: 'currency',
-      currency: 'CAD',
-      maximumFractionDigits: 0,
-    }).format(num);
-
-    const updateMissedRevenue = () => {
-      const missedLeads = Number(missedLeadsSlider.value);
-      const clientValue = Number(clientValueSlider.value);
-      const closeRate = Number(closeRateSlider.value) / 100;
-      const monthly = Math.round(missedLeads * 4 * clientValue * closeRate);
-      const annual = monthly * 12;
-
-      missedLeadsValue.textContent = missedLeads;
-      clientValueValue.textContent = formatCurrency(clientValue);
-      closeRateValue.textContent = `${closeRateSlider.value}%`;
-      monthlyMissedRevenue.textContent = formatCurrency(monthly);
-      annualMissedRevenue.textContent = formatCurrency(annual);
-    };
-
-    [missedLeadsSlider, clientValueSlider, closeRateSlider].forEach(slider => {
-      slider.addEventListener('input', updateMissedRevenue);
-    });
-
-    updateMissedRevenue();
-  }
-
   /* ── SMOOTH SCROLL FOR ANCHOR LINKS ── */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
@@ -161,27 +122,27 @@
     });
   });
 
-  /* ── FORM SUBMIT HANDLER (placeholder) ── */
+  /* ── FORM SUBMIT HANDLER ── */
   const contactForm = document.querySelector('#contact-form');
   if (contactForm) {
     const btn = contactForm.querySelector('button[type="submit"]');
-    const originalText = btn ? btn.textContent : '';
-
+    const orig = btn ? btn.textContent : '';
     const params = new URLSearchParams(window.location.search);
+
     if (params.get('submitted') === '1' && btn) {
-      btn.textContent = '✓ Submitted! Check your email';
+      btn.textContent = '✓ Request Sent!';
       btn.style.background = 'linear-gradient(135deg,#4ADE80,#22C55E)';
     }
 
     contactForm.addEventListener('submit', () => {
       if (!btn) return;
-      btn.textContent = 'Sending…';
+      btn.textContent = 'Sending...';
       btn.disabled = true;
     });
 
     contactForm.addEventListener('invalid', () => {
       if (!btn) return;
-      btn.textContent = originalText;
+      btn.textContent = orig;
       btn.disabled = false;
     }, true);
   }
