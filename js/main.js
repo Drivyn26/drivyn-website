@@ -1,12 +1,12 @@
 /* ============================================================
-   DRIVYN GÇö MAIN.JS
+   DRIVYN â€” MAIN.JS
    Scroll effects, animations, FAQ accordion, mobile nav
    ============================================================ */
 
 (function () {
   'use strict';
 
-  /* GöÇGöÇ NAV SCROLL GöÇGöÇ */
+  /* â”€â”€ NAV SCROLL â”€â”€ */
   const nav = document.querySelector('.nav');
   function handleScroll() {
     nav && nav.classList.toggle('scrolled', window.scrollY > 24);
@@ -14,7 +14,7 @@
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  /* GöÇGöÇ MOBILE NAV GöÇGöÇ */
+  /* â”€â”€ MOBILE NAV â”€â”€ */
   const toggle    = document.querySelector('.nav-toggle');
   const mobileNav = document.querySelector('.nav-mobile');
   const spans     = toggle ? toggle.querySelectorAll('span') : [];
@@ -37,7 +37,7 @@
     })
   );
 
-  /* GöÇGöÇ SET ACTIVE NAV LINK GöÇGöÇ */
+  /* â”€â”€ SET ACTIVE NAV LINK â”€â”€ */
   const page = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(a => {
     const href = a.getAttribute('href') || '';
@@ -47,14 +47,14 @@
     }
   });
 
-  /* GöÇGöÇ FADE-UP ON SCROLL GöÇGöÇ */
+  /* â”€â”€ FADE-UP ON SCROLL â”€â”€ */
   const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
   }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
 
   document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-  /* GöÇGöÇ DASHBOARD BAR ANIMATION GöÇGöÇ */
+  /* â”€â”€ DASHBOARD BAR ANIMATION â”€â”€ */
   const barObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -68,7 +68,7 @@
 
   document.querySelectorAll('.hero-dashboard').forEach(el => barObserver.observe(el));
 
-  /* GöÇGöÇ COUNTER ANIMATION GöÇGöÇ */
+  /* â”€â”€ COUNTER ANIMATION â”€â”€ */
   function animateCount(el) {
     const target   = parseFloat(el.dataset.target || 0);
     const suffix   = el.dataset.suffix || '';
@@ -97,7 +97,7 @@
 
   document.querySelectorAll('[data-target]').forEach(el => countObserver.observe(el));
 
-  /* GöÇGöÇ FAQ ACCORDION GöÇGöÇ */
+  /* â”€â”€ FAQ ACCORDION â”€â”€ */
   document.querySelectorAll('.faq-question').forEach(q => {
     q.addEventListener('click', () => {
       const item   = q.closest('.faq-item');
@@ -107,7 +107,7 @@
     });
   });
 
-  /* GöÇGöÇ SMOOTH SCROLL FOR ANCHOR LINKS GöÇGöÇ */
+  /* â”€â”€ SMOOTH SCROLL FOR ANCHOR LINKS â”€â”€ */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -122,17 +122,17 @@
     });
   });
 
-  /* GöÇGöÇ FORM SUBMIT HANDLER (placeholder) GöÇGöÇ */
+  /* â”€â”€ FORM SUBMIT HANDLER (placeholder) â”€â”€ */
   const contactForm = document.querySelector('#contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', e => {
       e.preventDefault();
       const btn  = contactForm.querySelector('button[type="submit"]');
       const orig = btn.textContent;
-      btn.textContent = 'SendingGÇª';
+      btn.textContent = 'Sendingâ€¦';
       btn.disabled    = true;
       setTimeout(() => {
-        btn.textContent = 'G£ô Message Sent!';
+        btn.textContent = 'âœ“ Message Sent!';
         btn.style.background = 'linear-gradient(135deg,#4ADE80,#22C55E)';
         contactForm.reset();
         setTimeout(() => {
