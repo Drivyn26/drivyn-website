@@ -1,12 +1,12 @@
 /* ============================================================
-   DRIVYN â€” MAIN.JS
+   DRIVYN GÇö MAIN.JS
    Scroll effects, animations, FAQ accordion, mobile nav
    ============================================================ */
 
 (function () {
   'use strict';
 
-  /* â”€â”€ NAV SCROLL â”€â”€ */
+  /* GöÇGöÇ NAV SCROLL GöÇGöÇ */
   const nav = document.querySelector('.nav');
   function handleScroll() {
     nav && nav.classList.toggle('scrolled', window.scrollY > 24);
@@ -14,7 +14,7 @@
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  /* â”€â”€ MOBILE NAV â”€â”€ */
+  /* GöÇGöÇ MOBILE NAV GöÇGöÇ */
   const toggle    = document.querySelector('.nav-toggle');
   const mobileNav = document.querySelector('.nav-mobile');
   const spans     = toggle ? toggle.querySelectorAll('span') : [];
@@ -37,7 +37,7 @@
     })
   );
 
-  /* â”€â”€ SET ACTIVE NAV LINK â”€â”€ */
+  /* GöÇGöÇ SET ACTIVE NAV LINK GöÇGöÇ */
   const page = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(a => {
     const href = a.getAttribute('href') || '';
@@ -47,14 +47,14 @@
     }
   });
 
-  /* â”€â”€ FADE-UP ON SCROLL â”€â”€ */
+  /* GöÇGöÇ FADE-UP ON SCROLL GöÇGöÇ */
   const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
   }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
 
   document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-  /* â”€â”€ DASHBOARD BAR ANIMATION â”€â”€ */
+  /* GöÇGöÇ DASHBOARD BAR ANIMATION GöÇGöÇ */
   const barObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -68,7 +68,7 @@
 
   document.querySelectorAll('.hero-dashboard').forEach(el => barObserver.observe(el));
 
-  /* â”€â”€ COUNTER ANIMATION â”€â”€ */
+  /* GöÇGöÇ COUNTER ANIMATION GöÇGöÇ */
   function animateCount(el) {
     const target   = parseFloat(el.dataset.target || 0);
     const suffix   = el.dataset.suffix || '';
@@ -97,7 +97,7 @@
 
   document.querySelectorAll('[data-target]').forEach(el => countObserver.observe(el));
 
-  /* â”€â”€ FAQ ACCORDION â”€â”€ */
+  /* GöÇGöÇ FAQ ACCORDION GöÇGöÇ */
   document.querySelectorAll('.faq-question').forEach(q => {
     q.addEventListener('click', () => {
       const item   = q.closest('.faq-item');
@@ -107,7 +107,7 @@
     });
   });
 
-  /* â”€â”€ SMOOTH SCROLL FOR ANCHOR LINKS â”€â”€ */
+  /* GöÇGöÇ SMOOTH SCROLL FOR ANCHOR LINKS GöÇGöÇ */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -122,29 +122,26 @@
     });
   });
 
-  /* â”€â”€ FORM SUBMIT HANDLER â”€â”€ */
+  /* GöÇGöÇ FORM SUBMIT HANDLER (placeholder) GöÇGöÇ */
   const contactForm = document.querySelector('#contact-form');
   if (contactForm) {
-    const btn = contactForm.querySelector('button[type="submit"]');
-    const orig = btn ? btn.textContent : '';
-    const params = new URLSearchParams(window.location.search);
-
-    if (params.get('submitted') === '1' && btn) {
-      btn.textContent = 'âœ“ Request Sent!';
-      btn.style.background = 'linear-gradient(135deg,#4ADE80,#22C55E)';
-    }
-
-    contactForm.addEventListener('submit', () => {
-      if (!btn) return;
-      btn.textContent = 'Sending...';
-      btn.disabled = true;
+    contactForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const btn  = contactForm.querySelector('button[type="submit"]');
+      const orig = btn.textContent;
+      btn.textContent = 'SendingGÇª';
+      btn.disabled    = true;
+      setTimeout(() => {
+        btn.textContent = 'G£ô Message Sent!';
+        btn.style.background = 'linear-gradient(135deg,#4ADE80,#22C55E)';
+        contactForm.reset();
+        setTimeout(() => {
+          btn.textContent   = orig;
+          btn.disabled      = false;
+          btn.style.background = '';
+        }, 3500);
+      }, 1200);
     });
-
-    contactForm.addEventListener('invalid', () => {
-      if (!btn) return;
-      btn.textContent = orig;
-      btn.disabled = false;
-    }, true);
   }
 
 })();
